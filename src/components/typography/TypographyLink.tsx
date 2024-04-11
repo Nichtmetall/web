@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -32,7 +32,7 @@ export default function TypographyLink({
       {children}
       {isExternalLink && (
         <span>
-          <ArrowUpRight size={14} />
+          <ArrowTopRightIcon />
         </span>
       )}
     </Link>
