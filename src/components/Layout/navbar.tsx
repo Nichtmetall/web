@@ -7,10 +7,8 @@ import TypographyLink from "../typography/TypographyLink";
 
 export default function Navbar() {
   return (
-    <div className="w-full flex items-center justify-between p-6">
-      <TypographyLink isExternalLink href="mailto:mail@hofmannanton.de">
-        mail@hofmannanton.de
-      </TypographyLink>
+    <div className="w-full flex items-center justify-between px-20 py-6">
+      <TypographyLink href="/">hofmannanton.de</TypographyLink>
       <ThemeSwitcher />
     </div>
   );

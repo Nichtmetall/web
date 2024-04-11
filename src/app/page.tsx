@@ -55,7 +55,9 @@ export default function Home() {
           </Button>
         </div>
         <div className="flex gap-4 justify-center">
-          <TypographyLink href="/impressum">Impressum</TypographyLink>
+          <TypographyLink isExternalLink href="/impressum">
+            Impressum
+          </TypographyLink>
           <TypographyLink isExternalLink href="">
             Docs
           </TypographyLink>
