@@ -6,8 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Star, TrendingUp, Zap, BarChart, Clock, Star as StarIcon } from "lucide-react"
-import { skillGroups, specializations } from "@/data/skills"
+import { Zap, TrendingUp, Clock, Star as StarIcon } from "lucide-react"
+import { skillGroups } from "@/data/skills"
 import { KPIHeader, STAT_ICONS } from "@/components/stats"
 
 const containerVariants = {

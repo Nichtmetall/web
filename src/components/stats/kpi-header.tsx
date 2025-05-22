@@ -124,7 +124,7 @@ export function KPIHeader({ title, description, stats, className = "" }: KPIHead
                     )}
 
                     <div className="flex flex-wrap justify-center gap-12">
-                        {stats.map((stat, index) => (
+                        {stats.map((stat) => (
                             <motion.div
                                 key={stat.label}
                                 variants={itemVariants}
