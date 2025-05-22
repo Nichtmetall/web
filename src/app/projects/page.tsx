@@ -5,9 +5,10 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FolderOpen } from "lucide-react"
+import { FolderOpen, Globe, Code } from "lucide-react"
 import { ProjectCard } from "@/components/project/project-card"
 import { projects, categories } from "@/data/projects"
+import { KPIHeader, STAT_ICONS } from "@/components/stats"
 
 export default function Projects() {
     const [selectedCategory, setSelectedCategory] = useState("all")
@@ -35,29 +36,26 @@ export default function Projects() {
                     </p>
                 </div>
 
-                {/* Statistics Banner */}
-                <Card className="bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
-                    <CardContent className="pt-6">
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-center">
-                            <div>
-                                <div className="text-2xl font-bold text-primary">{projects.length}</div>
-                                <div className="text-sm text-muted-foreground">Projekte</div>
-                            </div>
-                            <div>
-                                <div className="text-2xl font-bold text-primary">
-                                    {new Set(projects.flatMap(p => p.tags)).size}
-                                </div>
-                                <div className="text-sm text-muted-foreground">Technologien</div>
-                            </div>
-                            <div>
-                                <div className="text-2xl font-bold text-primary">
-                                    {projects.filter(p => p.status === "public").length}
-                                </div>
-                                <div className="text-sm text-muted-foreground">Öffentlich</div>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                {/* Project Statistics */}
+                <KPIHeader
+                    stats={[
+                        {
+                            label: "Projekte",
+                            value: projects.length,
+                            icon: STAT_ICONS.projects
+                        },
+                        {
+                            label: "Technologien",
+                            value: new Set(projects.flatMap(p => p.tags)).size,
+                            icon: Code
+                        },
+                        {
+                            label: "Öffentlich",
+                            value: projects.filter(p => p.status === "public").length,
+                            icon: Globe
+                        }
+                    ]}
+                />
 
                 {/* Category Tabs */}
                 <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">

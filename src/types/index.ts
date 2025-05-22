@@ -36,7 +36,6 @@ export interface TimelineItemProps {
 export interface Skill {
     name: string
     years: number
-    level: number
 }
 
 export interface SkillGroup {
@@ -55,6 +54,8 @@ export interface Specialization {
 export interface Certification {
     name: string
     year: string
+    link?: string
+    issuer?: string
 }
 
 export interface Category {

@@ -85,12 +85,6 @@ export function TimelineItem({ item, index, type, totalItems }: TimelineItemProp
                                     <p className="text-primary font-medium">{item.subtitle}</p>
                                 </div>
                             </div>
-                            {item.grade && (
-                                <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">
-                                    <Award className="h-3 w-3 mr-1" />
-                                    Note: {item.grade}
-                                </Badge>
-                            )}
                         </div>
 
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">

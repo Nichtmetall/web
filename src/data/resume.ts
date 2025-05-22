@@ -52,7 +52,6 @@ export const education: TimelineItem[] = [
             "Schwerpunkt: Software Engineering und Webtechnologien",
             "Abschlussarbeit: Entwicklung einer skalierbaren Cloud-Architektur",
         ],
-        grade: "1.2",
         skills: ["Software Engineering", "Cloud Computing", "Algorithmen"]
     },
     {
@@ -64,13 +63,15 @@ export const education: TimelineItem[] = [
             "Grundlagen der Informatik und Programmierung",
             "Praktikum bei einem Softwareunternehmen",
         ],
-        grade: "1.5",
         skills: ["Programmierung", "Datenstrukturen", "Betriebssysteme"]
     },
 ]
 
 export const certifications: Certification[] = [
-    { name: "AWS Certified Solutions Architect", year: "2023" },
-    { name: "React Professional Developer", year: "2022" },
-    { name: "Certified Scrum Master", year: "2021" }
+    {
+        name: "SAP Certified Associate - Integration Developer",
+        year: "2024",
+        issuer: "SAP",
+        link: "https://www.credly.com/badges/7cac971c-454f-4ed6-a40a-a3e74d27ce12/linked_in_profile"
+    },
 ] 
