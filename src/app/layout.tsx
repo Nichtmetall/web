@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Anton Hofmann | Full Stack Entwickler",
   description: "Full Stack Entwickler mit Fokus auf moderne Webtechnologien und benutzerfreundliche Anwendungen",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
 };
 
 export default function RootLayout({
