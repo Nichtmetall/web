@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Float, Box, Cylinder, Sphere } from "@react-three/drei"
+import { Float, Sphere } from "@react-three/drei"
 import * as THREE from "three"
 
 // Minimalistic Planet Objects

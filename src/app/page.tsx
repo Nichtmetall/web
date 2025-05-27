@@ -1,23 +1,12 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef } from "react"
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
-import { Canvas, useFrame } from "@react-three/fiber"
-import { OrbitControls, Sphere, MeshDistortMaterial, Float } from "@react-three/drei"
 import { Enhanced3DScene } from "@/components/3d/enhanced-scene"
 import { ParallaxSection, FloatingElement } from "@/components/ui/parallax-section"
-import { Github, Linkedin, Mail, ArrowDown, Code2, Zap, Globe, FileText, Sparkles, Layers, Box, MousePointer, Cpu, Database, Rocket, Users, Brain, Target, Calendar, Trophy, Star, Lightbulb, Heart, Coffee, Monitor, Play, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowDown, Code2, Zap, Globe, FileText, Sparkles, Layers, Box, Rocket, Calendar, Trophy, Heart } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import * as THREE from "three"
-
-// Smooth animation configurations
-const smoothConfig = {
-  stiffness: 100,
-  damping: 20,
-  restDelta: 0.001
-}
 
 const cardHoverAnimation = {
   y: -15,
@@ -310,7 +299,7 @@ function StatsSection() {
 
 // Standardized Feature Card Component
 function FeatureCard({ icon: Icon, title, description, delay = 0, gradient }: {
-  icon: any
+  icon: React.ComponentType<{ className?: string }>
   title: string
   description: string
   delay?: number

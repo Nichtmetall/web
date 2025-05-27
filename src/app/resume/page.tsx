@@ -11,7 +11,6 @@ import { TimelineItem } from "@/components/timeline/timeline-item"
 import { experiences, education, certifications } from "@/data/resume"
 
 export default function Resume() {
-    const [activeTab, setActiveTab] = useState("experience")
     const [showCertifications, setShowCertifications] = useState(true)
 
     const handleDownloadCV = () => {
@@ -278,7 +277,6 @@ export default function Resume() {
                 {/* Main Tabs */}
                 <SmoothTabs
                     defaultTab="experience"
-                    onTabChange={setActiveTab}
                     className="w-full"
                     tabsClassName="mb-5"
                     tabs={[

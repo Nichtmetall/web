@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import { SmoothTabs } from "@/components/ui/smooth-tabs"
 import { FolderOpen, Globe, Code, MousePointer } from "lucide-react"
 import { ProjectCard } from "@/components/project/project-card"

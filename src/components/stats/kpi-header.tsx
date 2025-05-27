@@ -8,7 +8,7 @@ import { Activity, Target, Clock } from "lucide-react"
 interface KPIStat {
     label: string
     value: number
-    icon: React.ElementType
+    icon: React.ComponentType<{ className?: string }>
     suffix?: string
     color?: string
 }

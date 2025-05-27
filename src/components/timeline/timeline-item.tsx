@@ -15,9 +15,8 @@ interface TimelineItemProps {
     totalItems: number
 }
 
-export function TimelineItem({ item, index, type, totalItems }: TimelineItemProps) {
+export function TimelineItem({ item, index, type }: TimelineItemProps) {
     const [isExpanded, setIsExpanded] = useState(false)
-    const isLast = index === totalItems - 1
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true, margin: "-100px" })
 

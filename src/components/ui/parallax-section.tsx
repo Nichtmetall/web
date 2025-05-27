@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, ReactNode } from "react"
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 
 interface ParallaxSectionProps {
     children: ReactNode
@@ -22,21 +22,18 @@ export function ParallaxSection({
         offset: ["start end", "end start"]
     })
 
-    const getTransform = (): MotionValue<number> => {
-        const distance = 100 * speed
-        switch (direction) {
-            case "up":
-                return useTransform(scrollYProgress, [0, 1], [distance, -distance])
-            case "down":
-                return useTransform(scrollYProgress, [0, 1], [-distance, distance])
-            case "left":
-                return useTransform(scrollYProgress, [0, 1], [distance, -distance])
-            case "right":
-                return useTransform(scrollYProgress, [0, 1], [-distance, distance])
-        }
-    }
+    const distance = 100 * speed
 
-    const transform = getTransform()
+    // Create transforms directly without function wrapper
+    const transformUp = useTransform(scrollYProgress, [0, 1], [distance, -distance])
+    const transformDown = useTransform(scrollYProgress, [0, 1], [-distance, distance])
+    const transformLeft = useTransform(scrollYProgress, [0, 1], [distance, -distance])
+    const transformRight = useTransform(scrollYProgress, [0, 1], [-distance, distance])
+
+    const transform = direction === "up" ? transformUp :
+        direction === "down" ? transformDown :
+            direction === "left" ? transformLeft :
+                transformRight
 
     return (
         <div ref={ref} className={className}>

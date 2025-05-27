@@ -62,7 +62,7 @@ export function SmoothTabs({
                 />
 
                 {/* Tab Buttons */}
-                {tabs.map((tab, index) => {
+                {tabs.map((tab) => {
                     const isActive = activeTab === tab.id
                     return (
                         <button

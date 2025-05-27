@@ -2,7 +2,7 @@
 
 import { useRef, useMemo, useEffect, useState } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Sphere, Points, PointMaterial, Line } from "@react-three/drei"
+import { Sphere, Points, PointMaterial } from "@react-three/drei"
 import * as THREE from "three"
 
 // GeoJSON Feature interface
@@ -338,14 +338,7 @@ function CityMarkers() {
     const pointsRef = useRef<THREE.Points>(null)
     const cityPoints = useMemo(() => generateCityPoints(), [])
 
-    // Define colors for different continents/regions
-    const cityColors = useMemo(() => {
-        return cities.map((city, index) => {
-            // Assign colors based on region or create a rainbow effect
-            const hue = (index * 137.508) % 360 // Golden angle for even distribution
-            return `hsl(${hue}, 70%, 60%)`
-        })
-    }, [])
+
 
     useFrame((state) => {
         if (pointsRef.current) {

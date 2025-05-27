@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { PerspectiveCamera, Environment } from "@react-three/drei"
 import { AnimatedGlobe } from "./animated-globe"
