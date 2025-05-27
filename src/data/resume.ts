@@ -2,69 +2,74 @@ import { TimelineItem, Certification } from '@/types'
 
 export const experiences: TimelineItem[] = [
     {
-        title: "Senior Full Stack Entwickler",
-        subtitle: "Tech Company GmbH",
+        title: "Full Stack Developer",
+        subtitle: "Software Solutions GmbH",
         location: "München",
         period: "2022 - Heute",
         description: [
-            "Entwicklung und Wartung von modernen Webanwendungen mit React und Node.js",
-            "Implementierung von CI/CD-Pipelines und DevOps-Praktiken",
-            "Mentoring von Junior-Entwicklern und Code-Reviews",
-            "Optimierung der Anwendungsperformance und Skalierbarkeit",
+            "Entwicklung und Wartung von modernen Webanwendungen mit React, Next.js und TypeScript",
+            "Backend-Entwicklung mit Node.js und Python",
+            "Implementierung von REST APIs und GraphQL Services",
+            "Code-Reviews und Mentoring von Teammitgliedern",
+            "Optimierung der Anwendungsperformance und User Experience"
         ],
-        skills: ["React", "Node.js", "TypeScript", "AWS", "Docker"]
+        skills: ["React", "Next.js", "TypeScript", "Node.js", "Python", "PostgreSQL", "Docker"]
     },
     {
-        title: "Full Stack Entwickler",
-        subtitle: "Digital Solutions AG",
-        location: "Berlin",
+        title: "Frontend Developer",
+        subtitle: "Digital Agency",
+        location: "München",
         period: "2020 - 2022",
         description: [
-            "Entwicklung von RESTful APIs und Microservices",
-            "Implementierung von Frontend-Komponenten mit React",
-            "Datenbankdesign und -optimierung",
-            "Agile Entwicklung in Scrum-Teams",
+            "Entwicklung responsiver Webanwendungen mit React und Vue.js",
+            "Implementierung von Design Systems und UI-Komponenten",
+            "Zusammenarbeit mit UX/UI Designern",
+            "Performance-Optimierung und SEO-Verbesserungen",
+            "Agile Entwicklung in Scrum-Teams"
         ],
-        skills: ["React", "Python", "PostgreSQL", "Git"]
+        skills: ["React", "Vue.js", "JavaScript", "SCSS", "Figma", "Git"]
     },
     {
-        title: "Junior Entwickler",
-        subtitle: "Startup Innovations",
-        location: "Hamburg",
+        title: "Web Developer",
+        subtitle: "Freelance",
+        location: "Remote",
         period: "2018 - 2020",
         description: [
-            "Entwicklung von Webanwendungen mit JavaScript und PHP",
-            "Responsive Design und Frontend-Entwicklung",
-            "Integration von Drittanbieter-APIs",
-            "Bugfixing und Wartung bestehender Systeme",
+            "Entwicklung von Websites und Webanwendungen für verschiedene Kunden",
+            "Full-Stack-Entwicklung mit modernen Frameworks",
+            "Beratung zu Webentwicklung und digitalen Lösungen",
+            "Projektmanagement und Kundenkommunikation"
         ],
-        skills: ["JavaScript", "PHP", "HTML/CSS", "MySQL"]
-    },
+        skills: ["JavaScript", "PHP", "WordPress", "HTML/CSS", "MySQL"]
+    }
 ]
 
 export const education: TimelineItem[] = [
     {
-        title: "Master of Science in Informatik",
-        subtitle: "Technische Universität München",
+        title: "Bachelor of Science Informatik",
+        subtitle: "Technische Hochschule München",
         location: "München",
-        period: "2016 - 2018",
+        period: "2015 - 2019",
         description: [
-            "Schwerpunkt: Software Engineering und Webtechnologien",
-            "Abschlussarbeit: Entwicklung einer skalierbaren Cloud-Architektur",
+            "Schwerpunkt: Software Engineering und Webentwicklung",
+            "Bachelorarbeit: Entwicklung einer modernen Webanwendung mit React",
+            "Praktikum bei einem Softwareunternehmen",
+            "Teilnahme an Hackathons und Coding-Wettbewerben"
         ],
-        skills: ["Software Engineering", "Cloud Computing", "Algorithmen"]
+        skills: ["Software Engineering", "Algorithmen", "Datenbanken", "Web-Technologien"]
     },
     {
-        title: "Bachelor of Science in Informatik",
-        subtitle: "Universität Hamburg",
-        location: "Hamburg",
-        period: "2012 - 2016",
+        title: "Fachabitur Informatik",
+        subtitle: "Berufsoberschule Bayern",
+        location: "München",
+        period: "2013 - 2015",
         description: [
-            "Grundlagen der Informatik und Programmierung",
-            "Praktikum bei einem Softwareunternehmen",
+            "Schwerpunkt: Informatik und Mathematik",
+            "Projektarbeit: Entwicklung einer Desktop-Anwendung",
+            "Grundlagen der Programmierung und Softwareentwicklung"
         ],
-        skills: ["Programmierung", "Datenstrukturen", "Betriebssysteme"]
-    },
+        skills: ["Programmierung", "Mathematik", "Grundlagen IT"]
+    }
 ]
 
 export const certifications: Certification[] = [
@@ -73,5 +78,5 @@ export const certifications: Certification[] = [
         year: "2024",
         issuer: "SAP",
         link: "https://www.credly.com/badges/7cac971c-454f-4ed6-a40a-a3e74d27ce12/linked_in_profile"
-    },
+    }
 ] 

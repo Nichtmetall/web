@@ -3,11 +3,10 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FolderOpen, Globe, Code } from "lucide-react"
+import { SmoothTabs } from "@/components/ui/smooth-tabs"
+import { FolderOpen, Globe, Code, MousePointer } from "lucide-react"
 import { ProjectCard } from "@/components/project/project-card"
 import { projects, categories } from "@/data/projects"
-import { KPIHeader, STAT_ICONS } from "@/components/stats"
 
 export default function Projects() {
     const [selectedCategory, setSelectedCategory] = useState("all")
@@ -17,60 +16,43 @@ export default function Projects() {
         : projects.filter(project => project.category === selectedCategory)
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <div className="container mx-auto px-4 py-8 max-w-5xl">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="space-y-8"
             >
-                {/* Header */}
-                <div className="text-center space-y-4">
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent flex items-center justify-center gap-3">
-                        <FolderOpen className="h-10 w-10 text-primary" />
-                        Meine Projekte
+                {/* Minimalistic Header */}
+                <div className="text-center space-y-3">
+                    <h1 className="text-3xl font-bold text-foreground flex items-center justify-center gap-3">
+                        <FolderOpen className="h-8 w-8 text-primary" />
+                        Projekte & Portfolio
                     </h1>
-                    <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        Eine Auswahl meiner Entwicklungsprojekte
+                    <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+                        Eine Auswahl meiner Entwicklungsprojekte und Arbeiten
                     </p>
+                    <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                            <MousePointer className="h-3 w-3" />
+                            <span>Karten anklicken für Details</span>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Project Statistics */}
-                <KPIHeader
-                    stats={[
-                        {
-                            label: "Projekte",
-                            value: projects.length,
-                            icon: STAT_ICONS.projects
-                        },
-                        {
-                            label: "Technologien",
-                            value: new Set(projects.flatMap(p => p.tags)).size,
-                            icon: Code
-                        },
-                        {
-                            label: "Öffentlich",
-                            value: projects.filter(p => p.status === "public").length,
-                            icon: Globe
-                        }
-                    ]}
-                />
-
                 {/* Category Tabs */}
-                <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
-                    <TabsList className="w-full">
-                        {categories.map((category) => (
-                            <TabsTrigger key={category.value} value={category.value}>
-                                {category.label}
-                                <Badge variant="secondary">
-                                    {category.count}
-                                </Badge>
-                            </TabsTrigger>
-                        ))}
-                    </TabsList>
-
-                    {categories.map((category) => (
-                        <TabsContent key={category.value} value={category.value} className="mt-8">
+                <SmoothTabs
+                    defaultTab="all"
+                    onTabChange={setSelectedCategory}
+                    className="w-full"
+                    tabsClassName="mb-5"
+                    tabs={categories.map((category) => ({
+                        id: category.value,
+                        label: category.label,
+                        icon: category.value === "all" ? Code :
+                            category.value === "web" ? Globe : Code,
+                        badge: category.count,
+                        content: (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -80,17 +62,37 @@ export default function Projects() {
                                 {filteredProjects.map((project, index) => (
                                     <motion.div
                                         key={project.title}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        transition={{
+                                            duration: 0.5,
+                                            delay: index * 0.1,
+                                            type: "spring",
+                                            stiffness: 120,
+                                            damping: 15
+                                        }}
                                     >
                                         <ProjectCard project={project} />
                                     </motion.div>
                                 ))}
+
+                                {/* Empty state if no projects in category */}
+                                {filteredProjects.length === 0 && (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        className="text-center py-12 col-span-full"
+                                    >
+                                        <div className="text-muted-foreground">
+                                            <FolderOpen className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                                            <p>Keine Projekte in dieser Kategorie gefunden.</p>
+                                        </div>
+                                    </motion.div>
+                                )}
                             </motion.div>
-                        </TabsContent>
-                    ))}
-                </Tabs>
+                        )
+                    }))}
+                />
             </motion.div>
         </div>
     )
