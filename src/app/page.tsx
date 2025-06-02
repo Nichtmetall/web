@@ -3,8 +3,7 @@
 import { useRef, useEffect } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ArrowDown, Code2, Zap, Globe, Rocket, Calendar, Trophy, Heart, Eye, Brain, Lightbulb, Target, ChevronDown, FileText, Code, Mail } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { ArrowDown, Code2, Globe, Calendar, Trophy, Heart, Eye, Brain, Lightbulb, Target, FileText, Code } from "lucide-react"
 import Link from "next/link"
 import { AnimatedCodeEditor } from "@/components/animated-code-editor"
 

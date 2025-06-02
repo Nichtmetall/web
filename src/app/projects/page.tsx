@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { SmoothTabs } from "@/components/ui/smooth-tabs"
-import { FolderOpen, Globe, Code, MousePointer } from "lucide-react"
+import { FolderOpen, Globe, Code } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { ProjectCard } from "@/components/project/project-card"
 import { projects, categories } from "@/data/projects"
@@ -39,8 +39,8 @@ export default function Projects() {
                                 Eine Auswahl meiner aktuellen und abgeschlossenen Projekte
                             </p>
                         </motion.div>
-                        
-                        <motion.div 
+
+                        <motion.div
                             className="flex items-center justify-center gap-8 text-sm text-muted-foreground pt-4"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}

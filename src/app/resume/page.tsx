@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Building2, GraduationCap, Award, Download, ExternalLink, ChevronDown, MousePointer, FileText } from "lucide-react"
+import { Building2, GraduationCap, Award, ExternalLink, ChevronDown, FileText } from "lucide-react"
 import { SmoothTabs } from "@/components/ui/smooth-tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"

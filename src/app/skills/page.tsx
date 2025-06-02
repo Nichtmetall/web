@@ -4,10 +4,9 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { 
-  Code, 
-  Clock, 
-  MousePointer, 
+import {
+  Code,
+  Clock,
   Zap
 } from "lucide-react"
 import { skillGroups } from "@/data/skills"
@@ -63,7 +62,7 @@ export default function Skills() {
 
   // Calculate total skills and average experience
   const totalSkills = skillGroups.reduce((sum, group) => sum + group.skills.length, 0)
-  const totalExperience = skillGroups.reduce((sum, group) => 
+  const totalExperience = skillGroups.reduce((sum, group) =>
     sum + group.skills.reduce((groupSum, skill) => groupSum + skill.years, 0), 0
   )
   const averageExperience = Math.round(totalExperience / totalSkills)
@@ -92,8 +91,8 @@ export default function Skills() {
                 Meine technischen Kompetenzen und Spezialisierungen
               </p>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="flex items-center justify-center gap-8 text-sm text-muted-foreground pt-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -143,7 +142,7 @@ export default function Skills() {
                         repeatDelay: 3
                       }}
                     />
-                    
+
                     <div className="relative z-10">
                       <div className="flex items-center gap-4 mb-4">
                         <motion.div
