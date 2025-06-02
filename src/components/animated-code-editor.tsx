@@ -54,7 +54,7 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
   const browserCursorRef = useRef<HTMLDivElement>(null)
   const dataContainerRef = useRef<HTMLDivElement>(null)
   const alertRef = useRef<HTMLDivElement>(null)
-
+  
   // Use refs for animation state to avoid React re-renders
   const animationStateRef = useRef({
     currentSnippetIndex: 0,
@@ -63,58 +63,62 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
   })
 
   useEffect(() => {
-    // Store ref values in variables to avoid stale closures
-    const editor = editorRef.current
-    const code = codeRef.current
-    const browser = browserRef.current
-    const filename = filenameRef.current
-    const clickTarget = clickTargetRef.current
-    const browserCursor = browserCursorRef.current
-    const dataContainer = dataContainerRef.current
-    const alert = alertRef.current
-    const animation = animationStateRef.current
-
     // Ensure all required elements exist
-    if (!editor || !code || !browser || !filename || !clickTarget ||
-      !browserCursor || !dataContainer || !alert) {
+    if (!editorRef.current || !codeRef.current || 
+        !browserRef.current || !filenameRef.current || !clickTargetRef.current || 
+        !browserCursorRef.current || !dataContainerRef.current || !alertRef.current) {
       console.warn('AnimatedCodeEditor: Not all refs are available')
       return
     }
 
     // Kill any existing animations
-    if (animation.masterTimeline) {
-      animation.masterTimeline.kill()
+    if (animationStateRef.current.masterTimeline) {
+      animationStateRef.current.masterTimeline.kill()
     }
 
     // Create master timeline
     const masterTL = gsap.timeline({ repeat: -1 })
-    animation.masterTimeline = masterTL
+    animationStateRef.current.masterTimeline = masterTL
 
     // Initialize states with null checks
-    gsap.set(browser, { opacity: 0, scale: 0.8 })
-    gsap.set(browserCursor, { opacity: 0, x: 100, y: 200 })
-    gsap.set(dataContainer, { opacity: 0, y: 20 })
-    gsap.set(alert, { opacity: 0, scale: 0.8, y: -20 })
+    if (browserRef.current) {
+      gsap.set(browserRef.current, { opacity: 0, scale: 0.8 })
+    }
+    if (browserCursorRef.current) {
+      gsap.set(browserCursorRef.current, { opacity: 0, x: 100, y: 200 })
+    }
+    if (dataContainerRef.current) {
+      gsap.set(dataContainerRef.current, { opacity: 0, y: 20 })
+    }
+    if (alertRef.current) {
+      gsap.set(alertRef.current, { opacity: 0, scale: 0.8, y: -20 })
+    }
 
     const createTypingAnimation = (snippet: typeof codeSnippets[0]) => {
       const tl = gsap.timeline()
-
+      
       // Clear the code editor completely at the start of each typing animation
       tl.call(() => {
-        code.textContent = ""
+        if (codeRef.current) {
+          codeRef.current.textContent = ""
+        }
       })
-
-      // Update filename immediately
-      filename.textContent = snippet.filename
+      
+      // Update filename immediately with null check
+      if (filenameRef.current) {
+        filenameRef.current.textContent = snippet.filename
+      }
 
       // Typing animation - read current content from DOM each time
       const chars = snippet.code.split('')
-
+      
       chars.forEach((char, index) => {
         tl.call(() => {
-          // Always read the current content from DOM and append the new character
-          const currentContent = code.textContent || ""
-          code.textContent = currentContent + char
+          if (codeRef.current) {
+            // Always read the current content from DOM and append the new character
+            const currentContent = codeRef.current.textContent || ""
+            codeRef.current.textContent = currentContent + char
+          }
         }, [], index * 0.03 + Math.random() * 0.01)
       })
 
@@ -129,138 +133,173 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
       const isHandleClickFunction = snippetIndex === 1 // Second snippet is handleClick
       const isFetchDataFunction = snippetIndex === 2 // Third snippet is fetchData
 
-      // Transition to browser
-      tl.to([code, filename], { opacity: 0.3, duration: 0.3 }) // Faster transition
-
-      tl.to(browser, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.4, // Faster
-        ease: "back.out(1.7)"
-      })
-
-      tl.to(browserCursor, { opacity: 1, duration: 0.2 }, "<0.2") // Faster
+      // Transition to browser with null checks
+      if (codeRef.current && filenameRef.current) {
+        tl.to([codeRef.current, filenameRef.current], { opacity: 0.3, duration: 0.3 }) // Faster transition
+      }
+      
+      if (browserRef.current) {
+        tl.to(browserRef.current, { 
+          opacity: 1, 
+          scale: 1, 
+          duration: 0.4, // Faster
+          ease: "back.out(1.7)" 
+        })
+      }
+      
+      if (browserCursorRef.current) {
+        tl.to(browserCursorRef.current, { opacity: 1, duration: 0.2 }, "<0.2") // Faster
+      }
 
       // Move cursor to button and click - faster
-      tl.to(browserCursor, {
-        x: 180, // Approximate button position
-        y: 120,
-        duration: 0.8, // Faster movement
-        ease: "power2.inOut"
-      })
-        .to(browserCursor, { scale: 0.8, duration: 0.05 }) // Faster click
-
-      tl.to(clickTarget, { scale: 0.95, duration: 0.05 }, "<") // Faster click
-
-      tl.to(browserCursor, { scale: 1, duration: 0.05 }) // Faster click
-
-      tl.to(clickTarget, { scale: 1, duration: 0.05 }, "<") // Faster click
+      if (browserCursorRef.current) {
+        tl.to(browserCursorRef.current, {
+          x: 180, // Approximate button position
+          y: 120,
+          duration: 0.8, // Faster movement
+          ease: "power2.inOut"
+        })
+        .to(browserCursorRef.current, { scale: 0.8, duration: 0.05 }) // Faster click
+      }
+      
+      if (clickTargetRef.current) {
+        tl.to(clickTargetRef.current, { scale: 0.95, duration: 0.05 }, "<") // Faster click
+      }
+      
+      if (browserCursorRef.current) {
+        tl.to(browserCursorRef.current, { scale: 1, duration: 0.05 }) // Faster click
+      }
+      
+      if (clickTargetRef.current) {
+        tl.to(clickTargetRef.current, { scale: 1, duration: 0.05 }, "<") // Faster click
+      }
 
       // Show alert animation if it's the handleClick function
-      if (isHandleClickFunction) {
+      if (isHandleClickFunction && alertRef.current) {
         tl.to({}, { duration: 0.3 }) // Small pause after click
-          .to(alert, {
-            opacity: 1,
+          .to(alertRef.current, { 
+            opacity: 1, 
             scale: 1,
             y: 0,
             duration: 0.4,
             ease: "back.out(1.7)"
           })
           .to({}, { duration: 1.5 }) // Pause to show the alert
-          .to(alert, {
-            opacity: 0,
+          .to(alertRef.current, { 
+            opacity: 0, 
             scale: 0.8,
             y: -20,
-            duration: 0.3
+            duration: 0.3 
           })
       }
       // Show data animation if it's the fetchData function
-      else if (isFetchDataFunction) {
+      else if (isFetchDataFunction && dataContainerRef.current) {
         tl.to({}, { duration: 0.3 }) // Small pause after click
-          .to(dataContainer, {
-            opacity: 1,
-            y: 0,
+          .to(dataContainerRef.current, { 
+            opacity: 1, 
+            y: 0, 
             duration: 0.6,
             ease: "back.out(1.7)"
           })
           .to({}, { duration: 1.2 }) // Longer pause to show the data
-          .to(dataContainer, {
-            opacity: 0,
-            y: 20,
-            duration: 0.3
+          .to(dataContainerRef.current, { 
+            opacity: 0, 
+            y: 20, 
+            duration: 0.3 
           })
       } else {
         tl.to({}, { duration: 0.5 }) // Shorter pause for Button component
       }
 
       // Transition back to editor - faster
-      tl.to(browser, { opacity: 0, scale: 0.8, duration: 0.3 })
-
-      tl.to(browserCursor, { opacity: 0, duration: 0.2 }, "<")
-
-      tl.to([code, filename], { opacity: 1, duration: 0.3 })
+      if (browserRef.current) {
+        tl.to(browserRef.current, { opacity: 0, scale: 0.8, duration: 0.3 })
+      }
+      
+      if (browserCursorRef.current) {
+        tl.to(browserCursorRef.current, { opacity: 0, duration: 0.2 }, "<")
+      }
+      
+      if (codeRef.current && filenameRef.current) {
+        tl.to([codeRef.current, filenameRef.current], { opacity: 1, duration: 0.3 })
+      }
 
       return tl
     }
 
     const createDeletingAnimation = () => {
       const tl = gsap.timeline()
-
+      
       // Create a function that dynamically gets current text and deletes one character
       const deleteOneChar = () => {
-        const currentContent = code.textContent || ""
-        if (currentContent.length > 0) {
-          code.textContent = currentContent.slice(0, -1)
-          return currentContent.length - 1 // Return remaining length
+        if (codeRef.current) {
+          const currentContent = codeRef.current.textContent || ""
+          if (currentContent.length > 0) {
+            codeRef.current.textContent = currentContent.slice(0, -1)
+            return currentContent.length - 1 // Return remaining length
+          }
         }
         return 0
       }
 
       // Get initial text length
-      const initialLength = code.textContent?.length || 0
-
+      const initialLength = codeRef.current?.textContent?.length || 0
+      
       // Create deletion sequence
       for (let i = 0; i < initialLength; i++) {
         tl.call(() => {
           deleteOneChar()
-        }, [], i * 0.02)
+        }, [], i * 0.01)
       }
 
-      return tl
-    }
+      // Ensure complete clearing at the end
+      tl.call(() => {
+        if (codeRef.current) {
+          codeRef.current.textContent = ""
+        }
+      })
 
-    // Create the animation sequence
-    const createAnimationSequence = () => {
-      const tl = gsap.timeline()
-
-      // Get current snippet
-      const currentSnippet = codeSnippets[animation.currentSnippetIndex]
-
-      // Add typing animation
-      tl.add(createTypingAnimation(currentSnippet))
-
-      // Add browser animation
-      tl.add(createBrowserAnimation(animation.currentSnippetIndex))
-
-      // Add deleting animation
-      tl.add(createDeletingAnimation())
-
-      // Update snippet index
-      animation.currentSnippetIndex = (animation.currentSnippetIndex + 1) % codeSnippets.length
+      tl.to({}, { duration: 0.3 })
 
       return tl
     }
 
-    // Add the animation sequence to the master timeline
-    masterTL.add(createAnimationSequence())
+    // Build the complete animation sequence
+    codeSnippets.forEach((snippet, index) => {
+      // Typing animation
+      masterTL.add(createTypingAnimation(snippet))
+      
+      // Browser interaction with snippet index
+      masterTL.add(createBrowserAnimation(index))
+      
+      // Delete current code (including the last iteration to reset before loop)
+      masterTL.add(createDeletingAnimation())
+    })
 
-    // Cleanup function
+    // Start animations
+    masterTL.play()
+
     return () => {
-      if (animation.masterTimeline) {
-        animation.masterTimeline.kill()
+      // Cleanup
+      if (animationStateRef.current.masterTimeline) {
+        animationStateRef.current.masterTimeline.kill()
+      }
+      // Kill all tweens with null checks
+      const elements = [
+        browserRef.current, 
+        codeRef.current, 
+        filenameRef.current, 
+        browserCursorRef.current, 
+        clickTargetRef.current,
+        dataContainerRef.current,
+        alertRef.current
+      ].filter(Boolean) // Remove null elements
+      
+      if (elements.length > 0) {
+        gsap.killTweensOf(elements)
       }
     }
-  }, []) // Empty dependency array since we're using refs
+  }, [])
 
   return (
     <div
@@ -284,10 +323,10 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
 
       {/* Code Editor View */}
       <div className="relative p-4 font-mono text-sm h-full">
-        <pre
-          ref={codeRef}
+        <pre 
+          ref={codeRef} 
           className="text-slate-300 whitespace-pre-wrap leading-6 relative z-10"
-          style={{
+          style={{ 
             fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
             fontSize: '0.875rem'
           }}
@@ -295,7 +334,7 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
       </div>
 
       {/* Browser View */}
-      <div
+      <div 
         ref={browserRef}
         className="absolute inset-0 bg-white rounded-2xl overflow-hidden opacity-0"
       >
@@ -317,8 +356,8 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
         <div className="p-8 bg-white h-full overflow-y-auto">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">API Data Demo</h1>
           <p className="text-gray-600 mb-8">Click the button below to fetch data from the API:</p>
-
-          <div
+          
+          <div 
             ref={clickTargetRef}
             className="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer transition-colors shadow-md"
           >
@@ -326,7 +365,7 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
           </div>
 
           {/* Alert - Shows after handleClick function click */}
-          <div
+          <div 
             ref={alertRef}
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-gray-300 rounded-lg shadow-2xl p-6 min-w-80 z-50"
           >
@@ -345,7 +384,7 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
           </div>
 
           {/* Data Container - Shows after fetchData function click */}
-          <div
+          <div 
             ref={dataContainerRef}
             className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200"
           >
@@ -359,10 +398,10 @@ export function AnimatedCodeEditor({ className }: AnimatedCodeEditorProps) {
         </div>
 
         {/* Browser Cursor */}
-        <div
+        <div 
           ref={browserCursorRef}
           className="absolute w-3 h-3 pointer-events-none z-50"
-          style={{
+          style={{ 
             background: 'linear-gradient(-45deg, transparent 0%, transparent 40%, white 40%, white 60%, black 60%)',
             clipPath: 'polygon(0 0, 0 100%, 35% 85%, 50% 100%, 65% 85%, 100% 100%, 100% 0)'
           }}
