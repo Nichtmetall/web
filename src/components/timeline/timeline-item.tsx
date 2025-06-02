@@ -21,14 +21,16 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
     const isInView = useInView(ref, { once: true, margin: "-100px" })
 
     const toggleExpanded = () => {
-        setIsExpanded(!isExpanded)
+        if (Array.isArray(item.description) && item.description.length > 0) {
+            setIsExpanded(!isExpanded)
+        }
     }
 
-    // Simplified animation variants
+    // Enhanced animation variants with better spacing and timing
     const containerVariants = {
         hidden: {
             opacity: 0,
-            y: 50
+            y: 30
         },
         visible: {
             opacity: 1,
@@ -51,8 +53,8 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
             opacity: 1,
             transition: {
                 duration: 0.8,
-                delay: index * 0.15 + 0.3,
-                ease: "easeOut",
+                delay: index * 0.15 + 0.2,
+                ease: [0.22, 1, 0.36, 1],
                 transformOrigin: "top"
             }
         }
@@ -68,12 +70,46 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
             opacity: 1,
             transition: {
                 duration: 0.5,
-                delay: index * 0.15 + 0.2,
+                delay: index * 0.15 + 0.1,
                 type: "spring",
                 stiffness: 150,
                 damping: 12
             }
         }
+    }
+
+    // Enhanced description animation
+    const descriptionVariants = {
+        hidden: {
+            opacity: 0,
+            x: -10
+        },
+        visible: (i: number) => ({
+            opacity: 1,
+            x: 0,
+            transition: {
+                duration: 0.4,
+                delay: i * 0.05 + 0.2,
+                ease: [0.22, 1, 0.36, 1]
+            }
+        })
+    }
+
+    // Enhanced skills animation
+    const skillVariants = {
+        hidden: {
+            opacity: 0,
+            scale: 0.9
+        },
+        visible: (i: number) => ({
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.3,
+                delay: i * 0.03 + 0.3,
+                ease: [0.22, 1, 0.36, 1]
+            }
+        })
     }
 
     return (
@@ -84,25 +120,25 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
             animate={isInView ? "visible" : "hidden"}
             className="relative flex items-start group"
         >
-            {/* Continuous Timeline line */}
+            {/* Enhanced Timeline line with modern design */}
             <motion.div
-                className="absolute left-3 top-0 w-0.5 h-full origin-top"
+                className="absolute left-4 top-0 w-0.5 h-full origin-top"
                 variants={timelineLineVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
             >
-                {/* Main line */}
-                <div className="w-full h-full bg-gradient-to-b from-primary/60 via-primary/40 to-primary/20" />
+                {/* Main line with enhanced gradient */}
+                <div className="h-full bg-gradient-to-b from-primary/80 via-primary/50 to-primary/30 rounded-full" />
 
-                {/* Animated glow effect */}
+                {/* Enhanced glow effect */}
                 <motion.div
-                    className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/30 to-transparent blur-sm"
+                    className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/40 to-transparent blur-sm rounded-full"
                     animate={{
-                        opacity: [0.3, 0.8, 0.3],
+                        opacity: [0.3, 0.6, 0.3],
                     }}
                     transition={{
                         duration: 3,
-                        delay: index * 0.5 + 1,
+                        delay: index * 0.3 + 0.5,
                         repeat: Infinity,
                         repeatType: "reverse",
                         ease: "easeInOut"
@@ -110,95 +146,111 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                 />
             </motion.div>
 
-            {/* Timeline dot */}
-            <div className="relative z-10 flex-shrink-0 flex items-center">
-                {/* Single pulsing ring */}
+            {/* Timeline dot container */}
+            <div className="relative w-8 h-8 flex items-center justify-center">
+                {/* Enhanced pulsing rings with better timing */}
                 <motion.div
-                    className="absolute w-6 h-6 rounded-full border-2 border-primary/40"
+                    className="absolute w-8 h-8 rounded-full border-2 border-primary/40"
                     animate={isInView ? {
-                        scale: [1, 1.3, 1],
-                        opacity: [0.5, 0.8, 0.5],
+                        scale: [1, 1.2, 1],
+                        opacity: [0.4, 0.6, 0.4],
                     } : {}}
                     transition={{
                         duration: 2.5,
-                        delay: index * 0.3 + 1,
+                        delay: index * 0.2 + 0.5,
                         repeat: Infinity,
                         ease: "easeInOut"
                     }}
                 />
 
-                {/* Main timeline dot */}
                 <motion.div
-                    className="relative w-6 h-6 rounded-full bg-primary border-2 border-background shadow-lg"
+                    className="absolute w-10 h-10 rounded-full border border-primary/20"
+                    animate={isInView ? {
+                        scale: [1, 1.15, 1],
+                        opacity: [0.2, 0.4, 0.2],
+                    } : {}}
+                    transition={{
+                        duration: 3,
+                        delay: index * 0.2 + 0.7,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+
+                {/* Enhanced main timeline dot with modern design */}
+                <motion.div
+                    className="relative w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 border-4 border-background shadow-lg"
                     variants={timelineDotVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                     whileHover={{
-                        scale: 1.2,
+                        scale: 1.15,
                         transition: { duration: 0.2 }
                     }}
                 >
-                    {/* Inner dot for extra visual interest */}
-                    <div className="absolute inset-1.5 rounded-full bg-background/30" />
+                    {/* Enhanced inner elements with gradient */}
+                    <div className="absolute inset-2 rounded-full bg-gradient-to-br from-background/40 to-background/20" />
+                    <div className="absolute inset-3 rounded-full bg-gradient-to-br from-primary/90 to-primary/70" />
                 </motion.div>
             </div>
 
-            {/* Enhanced Card content */}
-            <div className="flex-1 ml-8 pb-8">
+            {/* Enhanced Card content with modern design */}
+            <div className="flex-1 ml-12 pb-12">
                 <motion.div
                     whileHover={{
-                        y: -2,
+                        y: -3,
                         transition: { duration: 0.2, ease: "easeOut" }
                     }}
-                    whileTap={{ scale: 0.98 }}
+                    whileTap={{ scale: 0.99 }}
                 >
                     <Card
-                        className="relative overflow-hidden border border-border/50 hover:border-primary/40 transition-all duration-300 hover:shadow-md hover:shadow-primary/5 cursor-pointer bg-background/95 backdrop-blur-sm"
+                        className={`relative overflow-hidden border border-border transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 ${
+                            Array.isArray(item.description) && item.description.length > 0 ? 'hover:border-primary/40 cursor-pointer' : 'cursor-default'
+                        } bg-background/95 backdrop-blur-sm`}
                         onClick={toggleExpanded}
                     >
-                        {/* Subtle background effect */}
+                        {/* Enhanced background effect with gradient */}
                         <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-transparent opacity-0"
+                            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0"
                             whileHover={{ opacity: 1 }}
                             transition={{ duration: 0.3 }}
                         />
 
-                        {/* Minimalistic header */}
-                        <CardHeader className="pb-3 relative z-10">
+                        <CardHeader className="p-6">
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3 flex-1 min-w-0">
-                                    <Avatar className="h-8 w-8 flex-shrink-0">
-                                        <AvatarFallback className="bg-primary/10 text-primary text-xs">
-                                            {type === 'experience' ? <Building2 className="h-4 w-4" /> : <GraduationCap className="h-4 w-4" />}
+                                <div className="flex items-center gap-4 flex-1 min-w-0">
+                                    <Avatar className="h-12 w-12 flex-shrink-0 ring-2 ring-primary/10">
+                                        <AvatarFallback className="bg-gradient-to-br from-primary/10 to-primary/5 text-primary text-sm">
+                                            {type === 'experience' ? <Building2 className="h-6 w-6" /> : <GraduationCap className="h-6 w-6" />}
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className="min-w-0 flex-1">
-                                        <h3 className="font-semibold text-sm text-foreground leading-tight truncate">
+                                        <h3 className="font-semibold text-lg text-foreground leading-tight truncate mb-1">
                                             {item.title}
                                         </h3>
-                                        <p className="text-xs text-primary font-medium truncate">
+                                        <p className="text-sm text-primary font-medium truncate mb-2">
                                             {item.subtitle}
                                         </p>
-                                        <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
-                                            <div className="flex items-center gap-1">
-                                                <Calendar className="h-3 w-3" />
+                                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                            <div className="flex items-center gap-1.5">
+                                                <Calendar className="h-4 w-4" />
                                                 <span>{item.period}</span>
                                             </div>
                                             <span>•</span>
-                                            <div className="flex items-center gap-1">
-                                                <MapPin className="h-3 w-3" />
+                                            <div className="flex items-center gap-1.5">
+                                                <MapPin className="h-4 w-4" />
                                                 <span>{item.location}</span>
                                             </div>
                                         </div>
                                         {item.skills && item.skills.length > 0 && (
-                                            <div className="flex flex-wrap gap-1 mt-2">
+                                            <div className="flex flex-wrap gap-2 mt-3">
                                                 {item.skills.slice(0, 3).map((skill) => (
-                                                    <Badge key={skill} variant="secondary" className="text-xs px-1.5 py-0.5 bg-primary/10 text-primary border-primary/20">
+                                                    <Badge key={skill} variant="secondary" className="text-sm px-3 py-1 bg-primary/10 text-primary border-primary/20">
                                                         {skill}
                                                     </Badge>
                                                 ))}
                                                 {item.skills.length > 3 && (
-                                                    <Badge variant="outline" className="text-xs px-1.5 py-0.5 text-muted-foreground">
+                                                    <Badge variant="outline" className="text-sm px-3 py-1 text-muted-foreground">
                                                         +{item.skills.length - 3}
                                                     </Badge>
                                                 )}
@@ -206,29 +258,30 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                                         )}
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2 flex-shrink-0">
-                                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                        <Eye className="h-3 w-3" />
-                                        <span className="hidden sm:inline">Details</span>
-                                    </div>
-                                    <motion.div
-                                        animate={{ rotate: isExpanded ? 180 : 0 }}
-                                        transition={{
-                                            duration: 0.3,
-                                            type: "spring",
-                                            stiffness: 200,
-                                            damping: 20
-                                        }}
-                                    >
-                                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                                    </motion.div>
+                                <div className="flex items-center gap-2">
+                                    {Array.isArray(item.description) && item.description.length > 0 && (
+                                        <>
+                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Eye className="h-4 w-4" />
+                                                <span className="hidden sm:inline">Details</span>
+                                            </div>
+                                            <motion.div
+                                                animate={{ rotate: isExpanded ? 180 : 0 }}
+                                                transition={{
+                                                    duration: 0.3,
+                                                    type: "spring",
+                                                    stiffness: 200,
+                                                    damping: 20
+                                                }}
+                                            >
+                                                <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                                            </motion.div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
-
-
                         </CardHeader>
 
-                        {/* Expandable content with improved animations */}
                         <AnimatePresence>
                             {isExpanded && (
                                 <motion.div
@@ -242,70 +295,64 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                                     }}
                                     className="overflow-hidden"
                                 >
-                                    <CardContent className="pt-0 pb-4 border-t border-border/30">
-                                        {/* Location and period */}
+                                    <CardContent className="pt-0 pb-6 px-8 border-t border-border/30">
+                                        {/* Enhanced location and period with better spacing */}
                                         <motion.div
-                                            className="flex items-center gap-2 mb-3 text-sm text-muted-foreground"
-                                            initial={{ opacity: 0, y: -10 }}
+                                            className="flex items-center gap-3 mb-4 text-base text-muted-foreground"
+                                            initial={{ opacity: 0, y: -8 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3, delay: 0.1 }}
                                         >
-                                            <MapPin className="h-4 w-4" />
+                                            <MapPin className="h-5 w-5" />
                                             <span>{item.location}</span>
-                                            <Calendar className="h-4 w-4 ml-2" />
+                                            <Calendar className="h-5 w-5 ml-3" />
                                             <span>{item.period}</span>
                                         </motion.div>
 
-                                        {/* Description with staggered animation */}
-                                        <div className="space-y-2 mb-4">
-                                            {item.description.map((desc, i) => (
+                                        {/* Enhanced description with better spacing and animations */}
+                                        <div className="space-y-3">
+                                            {item.description?.map((desc, i) => (
                                                 <motion.div
                                                     key={i}
-                                                    initial={{ opacity: 0, x: -15 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    transition={{
-                                                        duration: 0.4,
-                                                        delay: i * 0.08 + 0.2,
-                                                        ease: "easeOut"
-                                                    }}
-                                                    className="flex items-start gap-2"
+                                                    custom={i}
+                                                    variants={descriptionVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    className="flex items-start gap-3"
                                                 >
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-2 flex-shrink-0" />
-                                                    <p className="text-sm text-muted-foreground leading-relaxed">
+                                                    <div className="w-2 h-2 rounded-full bg-gradient-to-br from-primary to-primary/70 mt-2.5 flex-shrink-0" />
+                                                    <p className="text-base text-muted-foreground leading-relaxed">
                                                         {desc}
                                                     </p>
                                                 </motion.div>
                                             ))}
                                         </div>
 
-                                        {/* Skills with improved animation */}
+                                        {/* Enhanced skills section with better animations */}
                                         {item.skills && item.skills.length > 0 && (
-                                            <div className="space-y-2">
+                                            <div className="space-y-3 mt-6">
                                                 <motion.h4
-                                                    className="text-xs font-medium text-foreground uppercase tracking-wide"
+                                                    className="text-sm font-medium text-foreground uppercase tracking-wide"
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
-                                                    transition={{ duration: 0.3, delay: 0.3 }}
+                                                    transition={{ duration: 0.3, delay: 0.2 }}
                                                 >
                                                     Technologien
                                                 </motion.h4>
-                                                <div className="flex flex-wrap gap-1.5">
+                                                <div className="flex flex-wrap gap-2">
                                                     {item.skills.map((skill, skillIndex) => (
                                                         <motion.div
                                                             key={skill}
-                                                            initial={{ opacity: 0, scale: 0.8 }}
-                                                            animate={{ opacity: 1, scale: 1 }}
-                                                            transition={{
-                                                                duration: 0.3,
-                                                                delay: skillIndex * 0.04 + 0.4,
-                                                                ease: "easeOut"
-                                                            }}
+                                                            custom={skillIndex}
+                                                            variants={skillVariants}
+                                                            initial="hidden"
+                                                            animate="visible"
                                                             whileHover={{
                                                                 scale: 1.05,
                                                                 transition: { duration: 0.15 }
                                                             }}
                                                         >
-                                                            <Badge variant="secondary" className="text-xs px-2 py-0.5 bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 transition-colors">
+                                                            <Badge variant="secondary" className="text-sm px-3 py-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 transition-colors">
                                                                 {skill}
                                                             </Badge>
                                                         </motion.div>
