@@ -17,11 +17,12 @@ export interface ProjectCardProps {
 }
 
 export interface TimelineItem {
+    id: string
     title: string
     subtitle: string
     location: string
     period: string
-    description: string[]
+    description?: string[]
     skills?: string[]
     grade?: string
 }
@@ -41,7 +42,7 @@ export interface Skill {
 export interface SkillGroup {
     title: string
     icon: React.ComponentType<{ className?: string }>
-    description: string
+    description?: string
     skills: Skill[]
 }
 

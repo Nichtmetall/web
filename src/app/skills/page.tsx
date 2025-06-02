@@ -4,8 +4,11 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Zap, TrendingUp, Clock, Star as StarIcon, MousePointer } from "lucide-react"
+import {
+  Code,
+  Clock,
+  Zap
+} from "lucide-react"
 import { skillGroups } from "@/data/skills"
 
 const containerVariants = {
@@ -13,7 +16,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.1,
       delayChildren: 0.2,
     },
   },
@@ -22,182 +25,213 @@ const containerVariants = {
 const itemVariants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    scale: 0.9,
+    y: 20,
+    scale: 0.95,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.7,
+      duration: 0.5,
       type: "spring",
-      stiffness: 120,
+      stiffness: 100,
       damping: 15,
     },
   },
 }
 
-// Helper function for badge variants based on years
-const getSkillBadgeVariant = (years: number) => {
-  if (years >= 5) return "default" // Expert level skills
-  if (years >= 3) return "secondary" // Solid skills
-  return "outline" // Basic knowledge
-}
-
-const getSkillBadgeColor = (years: number) => {
-  if (years >= 5) return "bg-green-500/10 text-green-600 border-green-300 hover:bg-green-500/20"
-  if (years >= 3) return "bg-blue-500/10 text-blue-600 border-blue-300 hover:bg-blue-500/20"
-  return "bg-gray-500/10 text-gray-600 border-gray-300 hover:bg-gray-500/20"
-}
-
-const getExperienceLevel = (years: number) => {
-  if (years >= 5) return { icon: StarIcon, color: "text-green-600" }
-  if (years >= 3) return { icon: TrendingUp, color: "text-blue-600" }
-  return { icon: Clock, color: "text-gray-600" }
+const skillItemVariants = {
+  hidden: {
+    opacity: 0,
+    x: -20,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
 }
 
 export default function Skills() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const skillsRef = useRef(null)
+  const isSkillsInView = useInView(skillsRef, { once: true, margin: "-100px" })
+
+  // Calculate total skills and average experience
+  const totalSkills = skillGroups.reduce((sum, group) => sum + group.skills.length, 0)
+  const totalExperience = skillGroups.reduce((sum, group) =>
+    sum + group.skills.reduce((groupSum, skill) => groupSum + skill.years, 0), 0
+  )
+  const averageExperience = Math.round(totalExperience / totalSkills)
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-8"
-      >
-        {/* Minimalistic Header */}
-        <div className="text-center space-y-3">
-          <h1 className="text-3xl font-bold text-foreground flex items-center justify-center gap-3">
-            <Zap className="h-8 w-8 text-primary" />
-            Technologien & Fähigkeiten
-          </h1>
-          <p className="text-sm text-muted-foreground max-w-lg mx-auto">
-            Technologien und Kompetenzen, mit denen ich arbeite
-          </p>
-          <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <MousePointer className="h-3 w-3" />
-              <span>Hover für Details</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Skills Grid */}
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
+      <div className="container mx-auto px-6 py-16 max-w-6xl">
         <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid gap-6 grid-cols-1 lg:grid-cols-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-16"
         >
-          {skillGroups.map((group, groupIndex) => (
+          {/* Enhanced Header with More Whitespace */}
+          <div className="text-center space-y-6 py-12">
             <motion.div
-              key={group.title}
-              variants={itemVariants}
-              className="group"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <Card className="h-full border border-border/50 hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 bg-background/95 backdrop-blur-sm overflow-hidden">
-                {/* Card Header with Icon and Description */}
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Avatar className="h-10 w-10">
-                      <AvatarFallback className="bg-primary/10 text-primary">
-                        <group.icon className="h-5 w-5" />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <CardTitle className="text-lg font-semibold text-foreground">
-                        {group.title}
-                      </CardTitle>
-                      <p className="text-xs text-muted-foreground/80 mt-1">
-                        {group.description}
-                      </p>
-                    </div>
-                    <Badge variant="outline" className="text-xs px-2 py-0.5">
-                      {group.skills.length} Skills
-                    </Badge>
-                  </div>
-                </CardHeader>
-
-                {/* Card Content with Skills */}
-                <CardContent className="pt-0">
-                  <div className="space-y-3">
-                    {[...group.skills].sort((a, b) => b.years - a.years).map((skill, index) => (
-                      <motion.div
-                        key={skill.name}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                        transition={{
-                          duration: 0.5,
-                          delay: 0.3 + (groupIndex * 0.1) + (index * 0.05)
-                        }}
-                        className="group/skill"
-                      >
-                        <motion.div
-                          className="flex items-center justify-between p-3 rounded-lg border border-border/40 hover:border-primary/30 hover:bg-accent/10 transition-all duration-300 cursor-pointer"
-                          whileHover={{
-                            y: -1,
-                            scale: 1.01,
-                            transition: { duration: 0.2 }
-                          }}
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2">
-                              {(() => {
-                                const experience = getExperienceLevel(skill.years)
-                                return (
-                                  <motion.div
-                                    animate={{
-                                      rotate: [0, 3, -3, 0],
-                                    }}
-                                    transition={{
-                                      duration: 3,
-                                      repeat: Infinity,
-                                      ease: "easeInOut"
-                                    }}
-                                  >
-                                    <experience.icon className={`h-4 w-4 ${experience.color}`} />
-                                  </motion.div>
-                                )
-                              })()}
-                              <span className="font-medium text-foreground">{skill.name}</span>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <Badge
-                              variant={getSkillBadgeVariant(skill.years)}
-                              className={`text-xs font-medium ${getSkillBadgeColor(skill.years)}`}
-                            >
-                              {skill.years} {skill.years === 1 ? 'Jahr' : 'Jahre'}
-                            </Badge>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Subtle summary at bottom */}
-                  <div className="mt-6 pt-4 border-t border-border/30">
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>
-                        {group.skills.reduce((sum, skill) => sum + skill.years, 0)} Jahre Erfahrung
-                      </span>
-                      <span>
-                        ⌀ {Math.round(group.skills.reduce((sum, skill) => sum + skill.years, 0) / group.skills.length)} Jahre
-                      </span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <h1 className="text-5xl font-bold text-foreground flex items-center justify-center gap-4 mb-6">
+                <Code className="h-12 w-12 text-primary" />
+                Technologien & Fähigkeiten
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Meine technischen Kompetenzen und Spezialisierungen
+              </p>
             </motion.div>
-          ))}
+
+            <motion.div
+              className="flex items-center justify-center gap-8 text-sm text-muted-foreground pt-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="flex items-center gap-4">
+                <Badge variant="outline" className="text-sm px-3 py-1">
+                  {totalSkills} Fähigkeiten
+                </Badge>
+                <Badge variant="outline" className="text-sm px-3 py-1">
+                  ⌀ {averageExperience} Jahre
+                </Badge>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Enhanced Skills Grid with Better Spacing */}
+          <motion.div
+            ref={skillsRef}
+            variants={containerVariants}
+            initial="hidden"
+            animate={isSkillsInView ? "visible" : "hidden"}
+            className="grid gap-8 grid-cols-1 xl:grid-cols-2 max-w-7xl mx-auto"
+          >
+            {skillGroups.map((group, groupIndex) => (
+              <motion.div
+                key={group.title}
+                variants={itemVariants}
+                className="group"
+              >
+                <Card className="h-full border border-border/50 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 bg-background/80 backdrop-blur-sm overflow-hidden">
+                  {/* Enhanced Card Header with More Padding */}
+                  <CardHeader className="pb-6 px-8 pt-8 relative overflow-hidden">
+                    {/* Shimmer effect */}
+                    <motion.div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                      animate={{
+                        background: [
+                          "linear-gradient(110deg, transparent 25%, rgba(255,255,255,0.1) 50%, transparent 75%)",
+                        ],
+                        x: ["-100%", "100%"]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        repeatDelay: 3
+                      }}
+                    />
+
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-4 mb-4">
+                        <motion.div
+                          className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center"
+                          whileHover={{ scale: 1.05, rotate: 5 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <group.icon className="h-8 w-8 text-primary" />
+                        </motion.div>
+                        <div className="flex-1">
+                          <CardTitle className="text-2xl font-semibold text-foreground mb-2">
+                            {group.title}
+                          </CardTitle>
+                        </div>
+                        <Badge variant="outline" className="text-sm px-3 py-1">
+                          {group.skills.length}
+                        </Badge>
+                      </div>
+                    </div>
+                  </CardHeader>
+
+                  {/* Enhanced Skills List with Better Spacing */}
+                  <CardContent className="pt-0 px-8 pb-8">
+                    <motion.div
+                      variants={containerVariants}
+                      className="space-y-3"
+                    >
+                      {[...group.skills]
+                        .sort((a, b) => b.years - a.years)
+                        .map((skill, index) => (
+                          <motion.div
+                            key={skill.name}
+                            variants={skillItemVariants}
+                            transition={{ delay: groupIndex * 0.1 + index * 0.05 }}
+                            className="group/skill"
+                          >
+                            <motion.div
+                              className="flex items-center justify-between p-3 rounded-lg hover:bg-accent/50 transition-all duration-200 border border-border/50 hover:border-primary/20 hover:shadow-md"
+                              whileHover={{
+                                x: 4,
+                                transition: { duration: 0.2 }
+                              }}
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="font-medium text-foreground group-hover/skill:text-primary transition-colors duration-200 text-sm">
+                                  {skill.name}
+                                </span>
+                              </div>
+
+                              <Badge
+                                variant="outline"
+                                className="text-xs font-medium transition-all duration-200 px-2 py-0.5 bg-muted/50 text-muted-foreground border-border hover:bg-muted"
+                              >
+                                {skill.years} {skill.years === 1 ? 'Jahr' : 'Jahre'}
+                              </Badge>
+                            </motion.div>
+                          </motion.div>
+                        ))}
+                    </motion.div>
+
+                    {/* Enhanced Summary Footer with More Spacing */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.5 + groupIndex * 0.2 }}
+                      className="mt-8 pt-6 border-t border-border/30"
+                    >
+                      <div className="flex items-center justify-between text-sm text-muted-foreground">
+                        <div className="flex items-center gap-3">
+                          <Zap className="h-4 w-4" />
+                          <span>
+                            {group.skills.reduce((sum, skill) => sum + skill.years, 0)} Jahre
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Clock className="h-4 w-4" />
+                          <span>
+                            ⌀ {Math.round(group.skills.reduce((sum, skill) => sum + skill.years, 0) / group.skills.length)} Jahre
+                          </span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   )
 } 

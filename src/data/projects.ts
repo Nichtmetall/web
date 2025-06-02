@@ -5,7 +5,7 @@ export const projects: Project[] = [
 
     {
         title: "empfehlungen.me",
-        description: "Ein linkbasiert Empfehlungssystem für Kunden und deren Mandanten.",
+        description: "Ein linkbasiert Empfehlungssystem für (Finanz-) Berater und deren Mandanten.",
         details: "Ein linkbasiert Empfehlungssystem für Kunden und deren Mandanten. Gebaut mit React und Tailwind CSS.",
         icon: "Globe",
         tags: ["React", "Tailwind CSS", "TypeScript", "Node.js", "Supabase"],

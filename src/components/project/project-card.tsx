@@ -111,7 +111,7 @@ export function ProjectCard({ project }: Omit<ProjectCardProps, 'index'>) {
             }}
             className="relative"
         >
-            <Card className="relative overflow-hidden border border-border/50 group h-auto min-h-[320px] hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+            <Card className="relative overflow-hidden border border-border/50 bg-secondary/10 group h-auto min-h-[320px] hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                 <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{
