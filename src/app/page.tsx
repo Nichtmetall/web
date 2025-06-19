@@ -4,17 +4,11 @@ import Link from "next/link"
 import { useRef, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
-
 // Magic UI Components
 import { DotPattern } from "@/components/magicui/dot-pattern"
 import { AuroraText } from "@/components/magicui/aurora-text"
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid"
-import { Terminal, TypingAnimation, AnimatedSpan } from "@/components/magicui/terminal"
 import { Marquee } from "@/components/magicui/marquee"
-import { AnimatedBeam } from "@/components/magicui/animated-beam"
 import { MagicCard } from "@/components/magicui/magic-card"
 import { NumberTicker } from "@/components/magicui/number-ticker"
 import { RainbowButton } from "@/components/magicui/rainbow-button"
@@ -32,23 +26,15 @@ import {
     Mail,
     Github,
     Linkedin,
-    Download,
     Code2,
     Server,
     Cloud,
     Users,
     Blocks,
     ExternalLink,
-    Calendar,
     ArrowRight,
-    Star,
-    Database,
-    Zap,
-    Settings,
-    Globe,
     Monitor,
     Code,
-    Sheet,
     List
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -58,9 +44,7 @@ export default function HomePage() {
     const experienceYears = currentYear - 2020 // Started in 2020
     const { theme } = useTheme()
 
-    // Refs for animated beams
-    const containerRef = useRef<HTMLDivElement>(null)
-    const hubRef = useRef<HTMLDivElement>(null)
+
     const sourceRef = useRef<(HTMLDivElement | null)[]>([])
     const targetRef = useRef<(HTMLDivElement | null)[]>([])
 
@@ -376,7 +360,7 @@ export default function HomePage() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {projects.slice(0, 2).map((project, index) => (
+                            {projects.slice(0, 2).map((project) => (
                                 <MagicCard key={project.title} className="p-6 rounded-lg">
                                     <div className="space-y-4">
                                         <div className="flex items-center justify-between">

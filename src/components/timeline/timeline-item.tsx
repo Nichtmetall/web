@@ -2,10 +2,10 @@
 
 import { useState, useRef } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { Building2, GraduationCap, MapPin, Calendar, ChevronDown, Eye } from "lucide-react"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Building2, GraduationCap, MapPin, ChevronDown, Eye } from "lucide-react"
+import { CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+
 import { MagicCard } from "@/components/magicui/magic-card"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import type { TimelineItem as TimelineItemType } from "@/types"
@@ -17,11 +17,11 @@ interface TimelineItemProps {
     totalItems: number
 }
 
-export function TimelineItem({ item, index, type, totalItems }: TimelineItemProps) {
+export function TimelineItem({ item, index, type }: TimelineItemProps) {
     const [isExpanded, setIsExpanded] = useState(false)
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true, margin: "-50px" })
-    const isLastItem = index === totalItems - 1
+
 
     const toggleExpanded = () => {
         if (Array.isArray(item.description) && item.description.length > 0) {

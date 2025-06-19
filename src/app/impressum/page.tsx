@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Phone, Mail, User, Building, AlertTriangle } from "lucide-react"
@@ -9,7 +8,6 @@ import { Phone, Mail, User, Building, AlertTriangle } from "lucide-react"
 import { DotPattern } from "@/components/magicui/dot-pattern"
 import { AuroraText } from "@/components/magicui/aurora-text"
 import { BlurFade } from "@/components/magicui/blur-fade"
-import { MagicCard } from "@/components/magicui/magic-card"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 

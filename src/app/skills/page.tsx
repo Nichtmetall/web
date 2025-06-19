@@ -1,13 +1,10 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { motion } from "framer-motion"
+
 import { Badge } from "@/components/ui/badge"
 import {
-  Code,
-  Clock,
-  Zap
+  Code
 } from "lucide-react"
 import { skillGroups } from "@/data/skills"
 import StackIcon from "tech-stack-icons"
@@ -16,46 +13,15 @@ import StackIcon from "tech-stack-icons"
 import { DotPattern } from "@/components/magicui/dot-pattern"
 import { AuroraText } from "@/components/magicui/aurora-text"
 import { BlurFade } from "@/components/magicui/blur-fade"
-import { MagicCard } from "@/components/magicui/magic-card"
-import { NumberTicker } from "@/components/magicui/number-ticker"
-import { Marquee } from "@/components/magicui/marquee"
+
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
 
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-}
 
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-    scale: 0.95,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      type: "spring",
-      stiffness: 100,
-      damping: 15,
-    },
-  },
-}
 
 export default function Skills() {
-  const skillsRef = useRef(null)
-  const isSkillsInView = useInView(skillsRef, { once: true, margin: "-100px" })
+
   const { theme } = useTheme()
   // Calculate total skills
   const totalSkills = skillGroups.reduce((sum, group) => sum + group.skills.length, 0)

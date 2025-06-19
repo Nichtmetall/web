@@ -1,5 +1,5 @@
 import { SkillGroup } from '@/types'
-import { Code2, Server, Cloud, Users, Blocks } from "lucide-react"
+import { Code2, Server, Cloud } from "lucide-react"
 
 export const skillGroups: SkillGroup[] = [
     {

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { SmoothTabs } from "@/components/ui/smooth-tabs"
 import { FolderOpen, Globe, Code } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+
 import { ProjectCard } from "@/components/project/project-card"
 import { projects, categories } from "@/data/projects"
 
@@ -12,8 +12,7 @@ import { projects, categories } from "@/data/projects"
 import { DotPattern } from "@/components/magicui/dot-pattern"
 import { AuroraText } from "@/components/magicui/aurora-text"
 import { BlurFade } from "@/components/magicui/blur-fade"
-import { MagicCard } from "@/components/magicui/magic-card"
-import { NumberTicker } from "@/components/magicui/number-ticker"
+
 import { cn } from "@/lib/utils"
 
 export default function Projects() {

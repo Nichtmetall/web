@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Building2, GraduationCap, Award, ExternalLink, ChevronDown, FileText } from "lucide-react"
+import { Building2, GraduationCap, Award, ExternalLink, ChevronDown } from "lucide-react"
 import { SmoothTabs } from "@/components/ui/smooth-tabs"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { TimelineItem } from "@/components/timeline/timeline-item"
@@ -15,7 +15,7 @@ import { DotPattern } from "@/components/magicui/dot-pattern"
 import { AuroraText } from "@/components/magicui/aurora-text"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import { MagicCard } from "@/components/magicui/magic-card"
-import { NumberTicker } from "@/components/magicui/number-ticker"
+
 import { cn } from "@/lib/utils"
 
 export default function Resume() {
