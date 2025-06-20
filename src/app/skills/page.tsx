@@ -1,13 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
+import React from "react"
 
 import { Badge } from "@/components/ui/badge"
 import {
   Code
 } from "lucide-react"
 import { skillGroups } from "@/data/skills"
-import StackIcon from "tech-stack-icons"
+
 
 // Magic UI Components
 import { DotPattern } from "@/components/magicui/dot-pattern"
@@ -113,11 +114,9 @@ export default function Skills() {
                                 {/* Tech Icon */}
                                 <div className="h-8 w-8 flex items-center justify-center">
                                   {skill.icon ? (
-                                    <StackIcon
-                                      variant={theme === "dark" ? "dark" : "light"}
-                                      name={skill.icon}
-                                      className="h-8 w-8 transition-transform duration-200 group-hover:scale-110"
-                                    />
+                                    React.createElement(skill.icon, { 
+                                      className: "h-8 w-8 transition-transform duration-200 group-hover:scale-110" 
+                                    })
                                   ) : (
                                     <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
                                       <Code className="h-4 w-4 text-primary" />

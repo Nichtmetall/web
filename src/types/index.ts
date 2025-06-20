@@ -37,7 +37,7 @@ export interface TimelineItemProps {
 export interface Skill {
     name: string
     years: number
-    icon?: string
+    icon?: React.ComponentType<any>
 }
 
 export interface SkillGroup {

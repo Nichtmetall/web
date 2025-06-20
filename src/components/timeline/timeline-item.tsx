@@ -83,43 +83,43 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                     }}
                 >
                     {/* Outer pulse ring */}
-                    <motion.div
+                <motion.div
                         className="absolute w-12 h-12 rounded-full border-2 border-primary/30"
-                        animate={isInView ? {
+                    animate={isInView ? {
                             scale: [1, 1.3, 1],
                             opacity: [0.3, 0.5, 0.3],
-                        } : {}}
-                        transition={{
-                            duration: 2.5,
-                            delay: index * 0.2 + 0.5,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                    />
+                    } : {}}
+                    transition={{
+                        duration: 2.5,
+                        delay: index * 0.2 + 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
 
                     {/* Middle pulse ring */}
-                    <motion.div
+                <motion.div
                         className="absolute w-8 h-8 rounded-full border border-primary/40"
-                        animate={isInView ? {
-                            scale: [1, 1.15, 1],
+                    animate={isInView ? {
+                        scale: [1, 1.15, 1],
                             opacity: [0.4, 0.6, 0.4],
-                        } : {}}
-                        transition={{
+                    } : {}}
+                    transition={{
                             duration: 2,
                             delay: index * 0.2 + 0.3,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                    />
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
 
                     {/* Main dot */}
-                    <motion.div
+                <motion.div
                         className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-primary/80 shadow-lg border-2 border-background flex items-center justify-center relative z-20"
-                        whileHover={{
+                    whileHover={{
                             scale: 1.2,
-                            transition: { duration: 0.2 }
-                        }}
-                    >
+                        transition: { duration: 0.2 }
+                    }}
+                >
                         <div className="w-2 h-2 rounded-full bg-background" />
                     </motion.div>
                 </motion.div>
@@ -162,8 +162,8 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                                                 className="bg-primary/5 border-primary/20 text-primary font-medium px-3 py-1"
                                             >
                                                 {item.period}
-                                            </Badge>
-                                        </div>
+                                                    </Badge>
+                                            </div>
                                     </div>
 
                                     {/* Expand indicator for descriptions */}
@@ -210,13 +210,13 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                                             Note: {item.grade}
                                         </Badge>
                                     )}
-                                </div>
-                            </CardHeader>
+                            </div>
+                        </CardHeader>
 
                             {/* Expandable content */}
                             <AnimatePresence mode="wait">
                                 {isExpanded && Array.isArray(item.description) && (
-                                    <motion.div
+                                <motion.div
                                         initial={{
                                             opacity: 0,
                                             height: 0,
@@ -233,12 +233,12 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                                             y: -20,
                                             transition: { duration: 0.3 }
                                         }}
-                                        transition={{
+                                    transition={{
                                             duration: 0.5,
                                             ease: [0.22, 1, 0.36, 1]
-                                        }}
-                                        className="overflow-hidden"
-                                    >
+                                    }}
+                                    className="overflow-hidden"
+                                >
                                         <CardContent className="px-8 pb-0">
                                             <div className="space-y-3">
                                                 {item.description.map((desc, descIndex) => (
@@ -248,64 +248,64 @@ export function TimelineItem({ item, index, type }: TimelineItemProps) {
                                                         direction="up"
                                                         offset={10}
                                                     >
-                                                        <motion.div
+                                                <motion.div
                                                             className="flex items-start gap-3 p-4 rounded-lg bg-muted/30 border border-border/50"
                                                             whileHover={{
                                                                 backgroundColor: "hsl(var(--muted) / 0.5)",
                                                                 transition: { duration: 0.2 }
                                                             }}
-                                                        >
+                                                >
                                                             <div className="w-2 h-2 rounded-full bg-primary/60 mt-2 flex-shrink-0" />
                                                             <p className="text-sm text-foreground/80 leading-relaxed">
-                                                                {desc}
-                                                            </p>
-                                                        </motion.div>
+                                                        {desc}
+                                                    </p>
+                                                </motion.div>
                                                     </BlurFade>
-                                                ))}
-                                            </div>
+                                            ))}
+                                        </div>
                                         </CardContent>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
 
                             {/* Skills section */}
-                            {item.skills && item.skills.length > 0 && (
+                                        {item.skills && item.skills.length > 0 && (
                                 <CardContent className="px-8 pb-8">
                                     <div className="pt-6 border-t border-border/50">
                                         <h4 className="text-sm font-semibold text-muted-foreground mb-4 flex items-center gap-2">
                                             <Eye className="h-4 w-4" />
                                             Technologien & Fähigkeiten
                                         </h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {item.skills.map((skill, skillIndex) => (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {item.skills.map((skill, skillIndex) => (
                                                 <BlurFade
                                                     key={skill}
                                                     delay={skillIndex * 0.03}
                                                     direction="up"
                                                     offset={5}
                                                 >
-                                                    <motion.div
-                                                        whileHover={{
-                                                            scale: 1.05,
+                                                        <motion.div
+                                                            whileHover={{
+                                                                scale: 1.05,
                                                             y: -2,
                                                             transition: { duration: 0.2 }
-                                                        }}
+                                                            }}
                                                         whileTap={{ scale: 0.95 }}
                                                     >
                                                         <Badge
                                                             variant="outline"
                                                             className="bg-background/50 border-primary/20 text-foreground/80 hover:bg-primary/5 hover:border-primary/30 transition-all duration-200 px-3 py-1"
                                                         >
-                                                            {skill}
-                                                        </Badge>
-                                                    </motion.div>
+                                                                {skill}
+                                                            </Badge>
+                                                        </motion.div>
                                                 </BlurFade>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </CardContent>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                    </CardContent>
                             )}
-                        </motion.div>
+                </motion.div>
                     </MagicCard>
                 </BlurFade>
             </div>
