@@ -35,7 +35,8 @@ import {
     ArrowRight,
     Monitor,
     Code,
-    List
+    List,
+    User
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import React from "react"
@@ -175,8 +176,8 @@ export default function HomePage() {
 
                         <div className="relative flex h-[800px] w-full flex-col items-center justify-center">
                             {/* Central Hub */}
-                            <div className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-primary bg-background shadow-lg">
-                                <Monitor className="h-6 w-6 text-primary mx-auto" />
+                            <div className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-primary/30 border-dashed shadow-lg">
+                                <User className="h-6 w-6 text-primary mx-auto" />
                             </div>
 
                             {/* Dynamic Orbiting Circles - All Technologies */}
@@ -195,7 +196,7 @@ export default function HomePage() {
                                 let orbitNumber = 0;
                                 
                                 while (currentIndex < allSkills.length) {
-                                    const skillsInThisOrbit = 4 + orbitNumber; // Ring 1: 4, Ring 2: 5, Ring 3: 6, etc.
+                                    const skillsInThisOrbit = 6 + orbitNumber; // Ring 1: 4, Ring 2: 5, Ring 3: 6, etc.
                                     const endIndex = Math.min(currentIndex + skillsInThisOrbit, allSkills.length);
                                     orbits.push(allSkills.slice(currentIndex, endIndex));
                                     currentIndex = endIndex;

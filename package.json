@@ -57,11 +57,5 @@
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.3.0",
     "typescript": "^5"
-  },
-  "overrides": {
-    "tech-stack-icons": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
   }
 }
