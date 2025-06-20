@@ -37,6 +37,7 @@ export interface TimelineItemProps {
 export interface Skill {
     name: string
     years: number
+    icon?: string
 }
 
 export interface SkillGroup {
