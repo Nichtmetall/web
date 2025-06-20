@@ -244,17 +244,17 @@ export default function Resume() {
                                                     }}
                                                 />
                                             </motion.div>
-                                            <div className="space-y-6">
-                                                {experiences.map((experience, index) => (
-                                                    <BlurFade key={experience.id} delay={0.1 + index * 0.1} inView>
-                                                        <TimelineItem
-                                                            item={experience}
-                                                            index={index}
-                                                            type="experience"
-                                                            totalItems={experiences.length}
-                                                        />
-                                                    </BlurFade>
-                                                ))}
+                                        <div className="space-y-6">
+                                            {experiences.map((experience, index) => (
+                                                <BlurFade key={experience.id} delay={0.1 + index * 0.1} inView>
+                                                    <TimelineItem
+                                                        item={experience}
+                                                        index={index}
+                                                        type="experience"
+                                                        totalItems={experiences.length}
+                                                    />
+                                                </BlurFade>
+                                            ))}
                                             </div>
                                         </div>
                                     )
@@ -293,17 +293,17 @@ export default function Resume() {
                                                     }}
                                                 />
                                             </motion.div>
-                                            <div className="space-y-6">
-                                                {education.map((edu, index) => (
-                                                    <BlurFade key={edu.id} delay={0.1 + index * 0.1} inView>
-                                                        <TimelineItem
-                                                            item={edu}
-                                                            index={index}
-                                                            type="education"
-                                                            totalItems={education.length}
-                                                        />
-                                                    </BlurFade>
-                                                ))}
+                                        <div className="space-y-6">
+                                            {education.map((edu, index) => (
+                                                <BlurFade key={edu.id} delay={0.1 + index * 0.1} inView>
+                                                    <TimelineItem
+                                                        item={edu}
+                                                        index={index}
+                                                        type="education"
+                                                        totalItems={education.length}
+                                                    />
+                                                </BlurFade>
+                                            ))}
                                             </div>
                                         </div>
                                     )

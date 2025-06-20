@@ -16,7 +16,7 @@ import { BlurFade } from "@/components/magicui/blur-fade"
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles"
 import { useTheme } from "next-themes"
 // Tech Stack Icons
-import StackIcon from "tech-stack-icons"
+
 // Data
 import { skillGroups } from "@/data/skills"
 import { projects } from "@/data/projects"
@@ -35,9 +35,11 @@ import {
     ArrowRight,
     Monitor,
     Code,
-    List
+    List,
+    User
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import React from "react"
 
 export default function HomePage() {
     const currentYear = new Date().getFullYear()
@@ -74,7 +76,7 @@ export default function HomePage() {
                     <section className="text-center py-16 md:py-24">
                         <div className="space-y-6">
                             <div className="space-y-4">
-                                <AuroraText className="text-4xl md:text-6xl font-bold">
+                                <AuroraText className="text-7xl font-semibold">
                                     Anton Hofmann
                                 </AuroraText>
 
@@ -97,7 +99,7 @@ export default function HomePage() {
                                 </RainbowButton>
 
                                 <Button variant="outline" asChild size="lg">
-                                    <Link href="mailto:contact@example.com">
+                                    <Link href="mailto:mail@hofmannanton.de">
                                         <Mail className="w-4 h-4 mr-2" />
                                         Kontakt
                                     </Link>
@@ -118,13 +120,11 @@ export default function HomePage() {
                                         className="mx-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
                                     >
                                         {skill.icon ? (
-                                            <StackIcon
-                                                variant={theme === "dark" ? "dark" : "light"}
-                                                name={skill.icon}
-                                                className="h-4 w-4"
-                                            />
+                                            React.createElement(skill.icon, {
+                                                className: "h-5 w-5 flex-shrink-0"
+                                            })
                                         ) : (
-                                            <Code className="h-4 w-4 text-primary/60" />
+                                            <Code className="h-5 w-5 text-primary/60 flex-shrink-0" />
                                         )}
                                         <span className="text-sm font-medium text-foreground/80">
                                             {skill.name}
@@ -174,10 +174,10 @@ export default function HomePage() {
                             </p>
                         </div>
 
-                        <div className="relative flex h-[600px] w-full flex-col items-center justify-center overflow-hidden">
+                        <div className="relative flex h-[800px] w-full flex-col items-center justify-center">
                             {/* Central Hub */}
-                            <div className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-primary bg-background shadow-lg">
-                                <Monitor className="h-6 w-6 text-primary mx-auto" />
+                            <div className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-primary/30 border-dashed shadow-lg">
+                                <User className="h-6 w-6 text-primary mx-auto" />
                             </div>
 
                             {/* Dynamic Orbiting Circles - All Technologies */}
@@ -186,17 +186,17 @@ export default function HomePage() {
                                 const allSkills = skillGroups.flatMap(group => 
                                     group.skills.filter(skill => skill.icon).map(skill => ({
                                         name: skill.name,
-                                        icon: skill.icon as string
+                                        icon: skill.icon!
                                     }))
                                 );
 
                                 // Teile Skills in Ringe auf: Ring 1 = 4 Icons, Ring 2 = 5 Icons, Ring 3 = 6 Icons, etc.
-                                const orbits: Array<{ name: string; icon: string }[]> = [];
+                                const orbits: Array<{ name: string; icon: React.ComponentType<any> }[]> = [];
                                 let currentIndex = 0;
                                 let orbitNumber = 0;
                                 
                                 while (currentIndex < allSkills.length) {
-                                    const skillsInThisOrbit = 4 + orbitNumber; // Ring 1: 4, Ring 2: 5, Ring 3: 6, etc.
+                                    const skillsInThisOrbit = 6 + orbitNumber; // Ring 1: 4, Ring 2: 5, Ring 3: 6, etc.
                                     const endIndex = Math.min(currentIndex + skillsInThisOrbit, allSkills.length);
                                     orbits.push(allSkills.slice(currentIndex, endIndex));
                                     currentIndex = endIndex;
@@ -209,7 +209,7 @@ export default function HomePage() {
                                     const radius = baseRadius + (orbitIndex * radiusIncrement);
                                     const duration = 35 + (orbitIndex * 15);
                                     const isReverse = orbitIndex % 2 === 1;
-                                    const iconSize = 20 + (orbitIndex * 4); // Icons werden nach außen größer
+                                    const iconSize = 24 + (orbitIndex * 4); // Icons werden nach außen größer
 
                                     return (
                                         <OrbitingCircles
@@ -224,22 +224,19 @@ export default function HomePage() {
                                             {orbitSkills.map((skill, skillIndex) => (
                                                 <div 
                                                     key={`${orbitIndex}-${skillIndex}`}
-                                                    className="flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border/50 shadow-sm"
                                                     style={{ 
                                                         width: `${iconSize + 8}px`, 
                                                         height: `${iconSize + 8}px` 
                                                     }}
                                                     title={skill.name}
                                                 >
-                                                    <StackIcon 
-                                                        name={skill.icon}
-                                                        variant={theme === "dark" ? "dark" : "light"}
-                                                        className="transition-transform hover:scale-110"
-                                                        style={{ 
+                                                    {React.createElement(skill.icon, {
+                                                        className: "transition-transform hover:scale-110",
+                                                        style: { 
                                                             width: `${iconSize - 4}px`, 
                                                             height: `${iconSize - 4}px` 
-                                                        }}
-                                                    />
+                                                        }
+                                                    })}
                                                 </div>
                                             ))}
                                         </OrbitingCircles>
