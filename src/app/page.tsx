@@ -14,8 +14,6 @@ import { NumberTicker } from "@/components/magicui/number-ticker"
 import { RainbowButton } from "@/components/magicui/rainbow-button"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles"
-import { useTheme } from "next-themes"
-// Tech Stack Icons
 
 // Data
 import { skillGroups } from "@/data/skills"
@@ -33,7 +31,6 @@ import {
     Blocks,
     ExternalLink,
     ArrowRight,
-    Monitor,
     Code,
     List,
     User
@@ -44,7 +41,6 @@ import React from "react"
 export default function HomePage() {
     const currentYear = new Date().getFullYear()
     const experienceYears = currentYear - 2020 // Started in 2020
-    const { theme } = useTheme()
 
 
     const sourceRef = useRef<(HTMLDivElement | null)[]>([])
@@ -191,7 +187,7 @@ export default function HomePage() {
                                 );
 
                                 // Teile Skills in Ringe auf: Ring 1 = 4 Icons, Ring 2 = 5 Icons, Ring 3 = 6 Icons, etc.
-                                const orbits: Array<{ name: string; icon: React.ComponentType<any> }[]> = [];
+                                const orbits: Array<{ name: string; icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }> }[]> = [];
                                 let currentIndex = 0;
                                 let orbitNumber = 0;
                                 

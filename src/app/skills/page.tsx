@@ -16,14 +16,8 @@ import { AuroraText } from "@/components/magicui/aurora-text"
 import { BlurFade } from "@/components/magicui/blur-fade"
 
 import { cn } from "@/lib/utils"
-import { useTheme } from "next-themes"
-
-
-
 
 export default function Skills() {
-
-  const { theme } = useTheme()
   // Calculate total skills
   const totalSkills = skillGroups.reduce((sum, group) => sum + group.skills.length, 0)
 
