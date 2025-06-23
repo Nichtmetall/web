@@ -87,19 +87,12 @@ export default function HomePage() {
                             </div>
 
                             <div className="flex flex-wrap justify-center gap-4 pt-4">
-                                <RainbowButton asChild size="lg">
+                                <RainbowButton asChild size="lg" variant={"outline"} className="bg-background">
                                     <Link href="/resume">
                                         <List className="w-4 h-4 mr-2" />
                                         Lebenslauf ansehen
                                     </Link>
                                 </RainbowButton>
-
-                                <Button variant="outline" asChild size="lg">
-                                    <Link href="mailto:mail@hofmannanton.de">
-                                        <Mail className="w-4 h-4 mr-2" />
-                                        Kontakt
-                                    </Link>
-                                </Button>
                             </div>
                         </div>
                     </section>

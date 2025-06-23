@@ -2,11 +2,12 @@
 
 import { useState, useRef } from "react"
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { MagicCard } from "@/components/magicui/magic-card"
 import { Code2, Globe, Github, ExternalLink, Lock, Unlock, Calendar, Server, Smartphone, Database, Layers } from "lucide-react"
 import { ProjectCardProps } from "@/types"
 
@@ -111,85 +112,85 @@ export function ProjectCard({ project }: Omit<ProjectCardProps, 'index'>) {
             }}
             className="relative"
         >
-            <Card className="relative overflow-hidden border border-border/50 bg-secondary/10 group h-auto min-h-[320px] hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                        background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.03), transparent 40%)`
-                    }}
-                />
+            <MagicCard className="h-auto min-h-[320px] py-6 rounded-lg">
+                    <div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{
+                            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.03), transparent 40%)`
+                        }}
+                    />
 
-                <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between mb-3">
-                        <div className="flex gap-3">
-                            <Avatar className="h-12 w-12">
-                                <AvatarFallback className="bg-primary/10 text-primary">
-                                    {getIconComponent(project.icon, project.category)}
-                                </AvatarFallback>
-                            </Avatar>
-                            <div>
-                                <CardTitle className="text-lg mb-1">{project.title}</CardTitle>
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Calendar className="h-3 w-3" />
-                                    {project.year}
+                    <CardHeader>
+                        <div className="flex items-start justify-between mb-3">
+                            <div className="flex gap-3">
+                                <Avatar className="h-12 w-12">
+                                    <AvatarFallback className="bg-primary/10 text-primary">
+                                        {getIconComponent(project.icon, project.category)}
+                                    </AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <CardTitle className="text-lg mb-1">{project.title}</CardTitle>
+                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                        <Calendar className="h-3 w-3" />
+                                        {project.year}
+                                    </div>
                                 </div>
                             </div>
+
+                            <Badge className={getStatusColor(project.status)}>
+                                <div className="flex items-center gap-1">
+                                    {getStatusIcon(project.status)}
+                                    {project.status}
+                                </div>
+                            </Badge>
+                        </div>
+                    </CardHeader>
+
+                    <CardContent className="pt-0 space-y-4">
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                            {project.description}
+                        </p>
+
+                        <Separator />
+
+                        <div className="flex flex-wrap gap-2">
+                            {project.tags.map((tag) => (
+                                <Badge key={tag} variant="outline" className="text-xs">
+                                    {tag}
+                                </Badge>
+                            ))}
                         </div>
 
-                        <Badge className={getStatusColor(project.status)}>
-                            <div className="flex items-center gap-1">
-                                {getStatusIcon(project.status)}
-                                {project.status}
-                            </div>
-                        </Badge>
-                    </div>
-                </CardHeader>
-
-                <CardContent className="pt-0 space-y-4">
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                        {project.description}
-                    </p>
-
-                    <Separator />
-
-                    <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                            <Badge key={tag} variant="outline" className="text-xs">
-                                {tag}
-                            </Badge>
-                        ))}
-                    </div>
-
-                    <div className="flex gap-2 mt-auto pt-4">
-                        {project.githubUrl && (
-                            <Button variant="outline" size="sm" asChild className="z-10">
-                                <a
-                                    href={project.githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <Github className="w-4 h-4 mr-1" />
-                                    Code
-                                </a>
-                            </Button>
-                        )}
-                        {project.liveUrl && (
-                            <Button variant="outline" size="sm" asChild className="z-10">
-                                <a
-                                    href={project.liveUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <ExternalLink className="w-4 h-4 mr-1" />
-                                    Live
-                                </a>
-                            </Button>
-                        )}
-                    </div>
-                </CardContent>
-            </Card>
+                        <div className="flex gap-2 mt-auto pt-4">
+                            {project.githubUrl && (
+                                <Button variant="outline" size="sm" asChild className="z-10">
+                                    <a
+                                        href={project.githubUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <Github className="w-4 h-4 mr-1" />
+                                        Code
+                                    </a>
+                                </Button>
+                            )}
+                            {project.liveUrl && (
+                                <Button variant="outline" size="sm" asChild className="z-10">
+                                    <a
+                                        href={project.liveUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <ExternalLink className="w-4 h-4 mr-1" />
+                                        Live
+                                    </a>
+                                </Button>
+                            )}
+                        </div>
+                    </CardContent>
+            </MagicCard>
         </motion.div>
     )
 } 
