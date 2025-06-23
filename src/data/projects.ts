@@ -4,32 +4,34 @@ export const projects: Project[] = [
 
 
     {
-        title: "empfehlungen.me",
+        title: "empfehlen.me",
         description: "Ein linkbasiert Empfehlungssystem für (Finanz-) Berater und deren Mandanten.",
         details: "Ein linkbasiert Empfehlungssystem für Kunden und deren Mandanten. Gebaut mit React und Tailwind CSS.",
         icon: "Globe",
-        tags: ["React", "Tailwind CSS", "TypeScript", "Node.js", "Supabase"],
+        tags: ["Next.js", "Tailwind CSS", "TypeScript", "Node.js", "Supabase", "Vercel", "Shadcn UI"],
         status: "private",
         category: "web",
         year: "2025",
+        liveUrl: "https://empfehlen.me"
     },
     {
         title: "Personal Website",
         description: "Meine persönliche Website, auf der ich meine Projekte, Fähigkeiten und mein Lebenslauf präsentiere.",
         details: "Meine persönliche Website, auf der ich meine Projekte, Fähigkeiten und mein Lebenslauf präsentiere. Gebaut mit Next.js und Tailwind CSS.",
         icon: "Code2",
-        tags: ["Next.js", "Tailwind CSS", "TypeScript", "React"],
+        tags: ["Next.js", "Tailwind CSS", "TypeScript", "React", "Shadcn UI", "Vercel"],
         status: "public",
         category: "web",
         year: "2023 - 2025",
-        githubUrl: "https://github.com/Nichtmetall/web"
+        githubUrl: "https://github.com/Nichtmetall/web",
+        liveUrl: "https://hofmannanton.de"
     },
     {
         title: "SAP CPI iFlow Screenshotter",
         description: "Chrome Plugin zum Screenshotten von SAP CPI iFlows.",
         details: "Ein Chrome Plugin zum Screenshotten von SAP CPI iFlows. Gebaut mit React und Tailwind CSS.",
         icon: "Globe",
-        tags: ["JavaScript"],
+        tags: ["JavaScript", "Chrome Extension"],
         status: "private",
         category: "web",
         year: "2025",
