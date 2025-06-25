@@ -13,27 +13,24 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants"
 
-const navigation = [
-  { name: "Lebenslauf", href: "/resume" },
-  { name: "Skills", href: "/skills" },
-  { name: "Projekte", href: "/projects" },
-]
+const navigation = NAV_LINKS.filter(link => link.href !== "/").slice(0, 3)
 
 const socials = [
   {
     name: "GitHub",
-    href: "https://github.com/Nichtmetall",
+    href: SOCIAL_LINKS.github,
     icon: Github,
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/anton-hofmann-616b691a9/",
+    href: SOCIAL_LINKS.linkedin,
     icon: Linkedin,
   },
   {
     name: "Email",
-    href: "mailto:mail@hofmannanton.de",
+    href: `mailto:${SOCIAL_LINKS.email}`,
     icon: Mail,
   },
 ]
@@ -57,12 +54,12 @@ export function Navbar() {
             <NavigationMenu>
               <NavigationMenuList>
                 {navigation.map((item) => (
-                  <NavigationMenuItem key={item.name}>
+                  <NavigationMenuItem key={item.label}>
                     <Link
                       href={item.href}
                       className={navigationMenuTriggerStyle()}
                     >
-                      {item.name}
+                      {item.label}
                     </Link>
                   </NavigationMenuItem>
                 ))}
@@ -184,7 +181,7 @@ export function Navbar() {
               >
                 {navigation.map((item) => (
                   <motion.div
-                    key={item.name}
+                    key={item.label}
                     variants={{
                       open: {
                         y: 0,
@@ -210,7 +207,7 @@ export function Navbar() {
                         }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      {item.name}
+                      {item.label}
                     </Link>
                   </motion.div>
                 ))}

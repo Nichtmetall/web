@@ -1,4 +1,4 @@
-import { TimelineItem, Certification } from '@/types'
+import { TimelineItem } from '@/types'
 
 export const experiences: TimelineItem[] = [
     {
@@ -96,11 +96,23 @@ export const education: TimelineItem[] = [
     }
 ]
 
-export const certifications: Certification[] = [
-    {
-        name: "SAP Certified Associate - Integration Developer",
-        year: "2024",
-        issuer: "SAP",
-        link: "https://www.credly.com/badges/7cac971c-454f-4ed6-a40a-a3e74d27ce12/linked_in_profile"
-    }
-] 
+
+
+// Funktion um alle Timeline-Einträge zu kombinieren und nach Startjahr zu sortieren
+export const getCombinedTimeline = () => {
+    const combinedItems = [
+        ...experiences.map(item => ({ ...item, type: 'experience' as const })),
+        ...education.map(item => ({ ...item, type: 'education' as const }))
+    ]
+
+    // Sortiere nach Startjahr (neueste zuerst)
+    return combinedItems.sort((a, b) => {
+        const getStartYear = (period: string) => {
+            // Extrahiere das Startjahr aus dem Zeitraum (z.B. "05/2024 - Heute" -> 2024)
+            const match = period.match(/(\d{2})\/(\d{4})/) || period.match(/(\d{4})/)
+            return match ? parseInt(match[match.length - 1]) : 0
+        }
+
+        return getStartYear(b.period) - getStartYear(a.period)
+    })
+} 

@@ -1,13 +1,13 @@
-import { SkillGroup } from '@/types'
-import { Code2, Server, Cloud } from "lucide-react"
-import { 
-    HTML5, 
-    CSS3, 
-    JavaScript, 
-    React as ReactIcon, 
-    TypeScript, 
-    NextJs, 
-    TailwindCSS, 
+import { SkillGroup, Certification } from '@/types'
+import { Code2, Server, Cloud, Award } from "lucide-react"
+import {
+    HTML5,
+    CSS3,
+    JavaScript,
+    React as ReactIcon,
+    TypeScript,
+    NextJs,
+    TailwindCSS,
     Framer,
     MySQL,
     CSharp,
@@ -89,4 +89,13 @@ export const skillGroups: SkillGroup[] = [
             { name: "Vercel", years: 1, icon: VercelDark },
         ],
     },
+]
+
+export const certifications: Certification[] = [
+    {
+        name: "SAP Certified Associate - Integration Developer",
+        year: "2024",
+        issuer: "SAP",
+        link: "https://www.credly.com/badges/7cac971c-454f-4ed6-a40a-a3e74d27ce12/linked_in_profile"
+    }
 ]

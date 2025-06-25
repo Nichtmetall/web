@@ -3,17 +3,18 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { SmoothTabs } from "@/components/ui/smooth-tabs"
-import { FolderOpen, Globe, Code } from "lucide-react"
+import { FolderOpen, Code } from "lucide-react"
 
 import { ProjectCard } from "@/components/project/project-card"
 import { projects, categories } from "@/data/projects"
 
-// Magic UI Components
-import { DotPattern } from "@/components/magicui/dot-pattern"
-import { AuroraText } from "@/components/magicui/aurora-text"
+// Generic UI Components
+import { PageBackground } from "@/components/ui/page-background"
+import { PageHeader } from "@/components/ui/page-header"
+import { PageContainer } from "@/components/ui/page-container"
 import { BlurFade } from "@/components/magicui/blur-fade"
 
-import { cn } from "@/lib/utils"
+import { ANIMATION_DELAYS } from "@/lib/constants"
 
 export default function Projects() {
     const [selectedCategory, setSelectedCategory] = useState("all")
@@ -23,36 +24,13 @@ export default function Projects() {
         : projects.filter(project => project.category === selectedCategory)
 
     return (
-        <main className="relative min-h-screen">
-            {/* Glowing Dot Pattern Background */}
-            <DotPattern
-                className={cn(
-                    "[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]",
-                    "fixed inset-0 -z-10 opacity-50"
-                )}
-                width={20}
-                height={20}
-            />
-
-            {/* Glow Effect Overlay */}
-            <div className="fixed inset-0 -z-10 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/20 dark:from-blue-950/20 dark:to-purple-950/20" />
-
-            <div className="container mx-auto px-4 py-8 max-w-7xl">
-                <BlurFade delay={0.1}>
-                    <section className="text-center py-16 md:py-24">
-                        <div className="space-y-6">
-                            <div className="space-y-4">
-                                <AuroraText className="text-4xl md:text-6xl font-bold">
-                                    Meine Projekte
-                                </AuroraText>
-
-                                <div className="text-xl md:text-2xl text-muted-foreground">
-                                    Eine Auswahl meiner aktuellen und abgeschlossenen Projekte
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </BlurFade>
+        <PageBackground>
+            <PageContainer>
+                <PageHeader
+                    title="Meine Projekte"
+                    subtitle="Eine Auswahl meiner aktuellen und abgeschlossenen Projekte"
+                    delay={ANIMATION_DELAYS.HERO}
+                />
 
                 {/* Enhanced Category Tabs Section */}
                 <BlurFade delay={0.2} inView>
@@ -65,8 +43,7 @@ export default function Projects() {
                             tabs={categories.map((category) => ({
                                 id: category.value,
                                 label: category.label,
-                                icon: category.value === "all" ? Code :
-                                    category.value === "web" ? Globe : Code,
+                                icon: Code,
                                 badge: category.count,
                                 content: (
                                     <motion.div
@@ -98,7 +75,7 @@ export default function Projects() {
                         />
                     </div>
                 </BlurFade>
-            </div>
-        </main>
+            </PageContainer>
+        </PageBackground>
     )
 } 

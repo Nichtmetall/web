@@ -1,13 +1,21 @@
 import { Project, Category } from '@/types'
 
 export const projects: Project[] = [
-
-
+    {
+        title: "wartefrei",
+        description: "Eine praktische App, um VVO Abfahrten zu überprüfen und geeignete Verbindungen zu finden.",
+        icon: "Tram",
+        tags: ["Vite", "Tailwind CSS", "TypeScript", "Node.js", "Vercel", "Shadcn UI"],
+        status: "public",
+        category: "web",
+        year: "2025",
+        githubUrl: "https://github.com/Nichtmetall/wartefrei",
+        liveUrl: "https://wartefrei.vercel.app"
+    },
     {
         title: "empfehlen.me",
         description: "Ein linkbasiert Empfehlungssystem für (Finanz-) Berater und deren Mandanten.",
-        details: "Ein linkbasiert Empfehlungssystem für Kunden und deren Mandanten. Gebaut mit React und Tailwind CSS.",
-        icon: "Globe",
+        icon: "Code2",
         tags: ["Next.js", "Tailwind CSS", "TypeScript", "Node.js", "Supabase", "Vercel", "Shadcn UI"],
         status: "private",
         category: "web",
@@ -17,7 +25,6 @@ export const projects: Project[] = [
     {
         title: "Personal Website",
         description: "Meine persönliche Website, auf der ich meine Projekte, Fähigkeiten und mein Lebenslauf präsentiere.",
-        details: "Meine persönliche Website, auf der ich meine Projekte, Fähigkeiten und mein Lebenslauf präsentiere. Gebaut mit Next.js und Tailwind CSS.",
         icon: "Code2",
         tags: ["Next.js", "Tailwind CSS", "TypeScript", "React", "Shadcn UI", "Vercel"],
         status: "public",
@@ -29,8 +36,7 @@ export const projects: Project[] = [
     {
         title: "SAP CPI iFlow Screenshotter",
         description: "Chrome Plugin zum Screenshotten von SAP CPI iFlows.",
-        details: "Ein Chrome Plugin zum Screenshotten von SAP CPI iFlows. Gebaut mit React und Tailwind CSS.",
-        icon: "Globe",
+        icon: "Code2",
         tags: ["JavaScript", "Chrome Extension"],
         status: "private",
         category: "web",
@@ -39,8 +45,7 @@ export const projects: Project[] = [
     {
         title: "Spigot Config Manager",
         description: "Ein Config Manager für Spigot Plugins.",
-        details: "Ein Config Manager für Spigot Plugins.",
-        icon: "Globe",
+        icon: "Code2",
         tags: ["Java"],
         status: "public",
         category: "backend",

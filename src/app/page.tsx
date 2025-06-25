@@ -1,9 +1,10 @@
-"use client";
+"use client"
 
 import Link from "next/link"
-import { useRef, useEffect } from "react"
+import React from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+
 // Magic UI Components
 import { DotPattern } from "@/components/magicui/dot-pattern"
 import { AuroraText } from "@/components/magicui/aurora-text"
@@ -15,9 +16,11 @@ import { RainbowButton } from "@/components/magicui/rainbow-button"
 import { BlurFade } from "@/components/magicui/blur-fade"
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles"
 
-// Data
+// Data & Constants
 import { skillGroups } from "@/data/skills"
 import { projects } from "@/data/projects"
+import { ANIMATION_DELAYS, SKILL_ORBITS, UI_CONFIG, SITE_META, SOCIAL_LINKS } from "@/lib/constants"
+
 // Icons
 import {
     MapPin,
@@ -36,20 +39,10 @@ import {
     User
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import React from "react"
 
 export default function HomePage() {
     const currentYear = new Date().getFullYear()
-    const experienceYears = currentYear - 2020 // Started in 2020
-
-
-    const sourceRef = useRef<(HTMLDivElement | null)[]>([])
-    const targetRef = useRef<(HTMLDivElement | null)[]>([])
-
-    useEffect(() => {
-        sourceRef.current = sourceRef.current.slice(0, 3)
-        targetRef.current = targetRef.current.slice(0, 3)
-    }, [])
+    const experienceYears = currentYear - SITE_META.experienceStartYear
     return (
         <main className="relative min-h-screen">
             {/* Glowing Dot Pattern Background */}
@@ -58,9 +51,8 @@ export default function HomePage() {
                     "[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]",
                     "fixed inset-0 -z-10 opacity-50"
                 )}
-                //glow={true}
-                width={20}
-                height={20}
+                width={UI_CONFIG.DOT_PATTERN_SIZE}
+                height={UI_CONFIG.DOT_PATTERN_SIZE}
             />
 
             {/* Glow Effect Overlay */}
@@ -68,7 +60,7 @@ export default function HomePage() {
 
             <div className="container mx-auto px-4 py-8 max-w-7xl">
                 {/* Hero Section */}
-                <BlurFade delay={0.1}>
+                <BlurFade delay={ANIMATION_DELAYS.HERO}>
                     <section className="text-center py-16 md:py-24">
                         <div className="space-y-6">
                             <div className="space-y-4">
@@ -77,12 +69,12 @@ export default function HomePage() {
                                 </AuroraText>
 
                                 <div className="text-xl md:text-2xl text-muted-foreground">
-                                    Digital Architect
+                                    {SITE_META.role}
                                 </div>
 
                                 <div className="flex items-center justify-center gap-2 text-muted-foreground">
                                     <MapPin className="w-4 h-4" />
-                                    <span>Dresden, Deutschland</span>
+                                    <span>{SITE_META.location}</span>
                                 </div>
                             </div>
 
@@ -99,9 +91,9 @@ export default function HomePage() {
                 </BlurFade>
 
                 {/* All Skills Overview */}
-                <BlurFade delay={0.5} inView>
+                <BlurFade delay={ANIMATION_DELAYS.SKILLS} inView>
                     <div className="mt-16 text-center">
-                        <Marquee className="[--duration:120s]" pauseOnHover={false}>
+                        <Marquee className={`[--duration:${UI_CONFIG.MARQUEE_DURATION}s]`} pauseOnHover={false}>
                             {skillGroups.flatMap(group =>
                                 group.skills.map(skill => (
                                     <div
@@ -126,7 +118,7 @@ export default function HomePage() {
                 </BlurFade>
 
                 {/* Stats Cards */}
-                <BlurFade delay={0.3} inView>
+                <BlurFade delay={ANIMATION_DELAYS.STATS} inView>
                     <section className="py-8">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <MagicCard className="text-center p-6 rounded-lg">
@@ -172,7 +164,7 @@ export default function HomePage() {
                             {/* Dynamic Orbiting Circles - All Technologies */}
                             {(() => {
                                 // Sammle alle Skills mit ihren Icons
-                                const allSkills = skillGroups.flatMap(group => 
+                                const allSkills = skillGroups.flatMap(group =>
                                     group.skills.filter(skill => skill.icon).map(skill => ({
                                         name: skill.name,
                                         icon: skill.icon!
@@ -183,7 +175,7 @@ export default function HomePage() {
                                 const orbits: Array<{ name: string; icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }> }[]> = [];
                                 let currentIndex = 0;
                                 let orbitNumber = 0;
-                                
+
                                 while (currentIndex < allSkills.length) {
                                     const skillsInThisOrbit = 6 + orbitNumber; // Ring 1: 4, Ring 2: 5, Ring 3: 6, etc.
                                     const endIndex = Math.min(currentIndex + skillsInThisOrbit, allSkills.length);
@@ -193,12 +185,10 @@ export default function HomePage() {
                                 }
 
                                 return orbits.map((orbitSkills, orbitIndex) => {
-                                    const baseRadius = 80;
-                                    const radiusIncrement = 80;
-                                    const radius = baseRadius + (orbitIndex * radiusIncrement);
-                                    const duration = 35 + (orbitIndex * 15);
+                                    const radius = SKILL_ORBITS.BASE_RADIUS + (orbitIndex * SKILL_ORBITS.RADIUS_INCREMENT);
+                                    const duration = SKILL_ORBITS.BASE_DURATION + (orbitIndex * SKILL_ORBITS.DURATION_INCREMENT);
                                     const isReverse = orbitIndex % 2 === 1;
-                                    const iconSize = 24 + (orbitIndex * 4); // Icons werden nach außen größer
+                                    const iconSize = SKILL_ORBITS.BASE_ICON_SIZE + (orbitIndex * SKILL_ORBITS.ICON_SIZE_INCREMENT);
 
                                     return (
                                         <OrbitingCircles
@@ -211,19 +201,19 @@ export default function HomePage() {
                                             radius={radius}
                                         >
                                             {orbitSkills.map((skill, skillIndex) => (
-                                                <div 
+                                                <div
                                                     key={`${orbitIndex}-${skillIndex}`}
-                                                    style={{ 
-                                                        width: `${iconSize + 8}px`, 
-                                                        height: `${iconSize + 8}px` 
+                                                    style={{
+                                                        width: `${iconSize + 8}px`,
+                                                        height: `${iconSize + 8}px`
                                                     }}
                                                     title={skill.name}
                                                 >
                                                     {React.createElement(skill.icon, {
                                                         className: "transition-transform hover:scale-110",
-                                                        style: { 
-                                                            width: `${iconSize - 4}px`, 
-                                                            height: `${iconSize - 4}px` 
+                                                        style: {
+                                                            width: `${iconSize - 4}px`,
+                                                            height: `${iconSize - 4}px`
                                                         }
                                                     })}
                                                 </div>
@@ -237,7 +227,7 @@ export default function HomePage() {
                 </BlurFade>
 
                 {/* Enhanced Bento Grid Features */}
-                <BlurFade delay={0.5} inView>
+                <BlurFade delay={ANIMATION_DELAYS.BENTO} inView>
                     <section className="py-8">
                         <div className="text-center mb-8">
                             <h2 className="text-2xl font-bold mb-2">Was ich mache</h2>
@@ -400,7 +390,7 @@ export default function HomePage() {
                 </BlurFade>
 
                 {/* Contact Section */}
-                <BlurFade delay={0.7} inView>
+                <BlurFade delay={ANIMATION_DELAYS.CONTACT} inView>
                     <section className="py-16 text-center">
                         <div className="space-y-6">
                             <h2 className="text-3xl font-bold">Lass uns zusammenarbeiten</h2>
@@ -410,21 +400,21 @@ export default function HomePage() {
 
                             <div className="flex flex-wrap justify-center gap-4">
                                 <Button asChild size="lg">
-                                    <Link href="mailto:contact@example.com">
+                                    <Link href={`mailto:${SOCIAL_LINKS.email}`}>
                                         <Mail className="w-4 h-4 mr-2" />
                                         E-Mail schreiben
                                     </Link>
                                 </Button>
 
                                 <Button variant="outline" size="lg" asChild>
-                                    <Link href="https://linkedin.com" target="_blank">
+                                    <Link href={SOCIAL_LINKS.linkedin} target="_blank">
                                         <Linkedin className="w-4 h-4 mr-2" />
                                         LinkedIn
                                     </Link>
                                 </Button>
 
                                 <Button variant="outline" size="lg" asChild>
-                                    <Link href="https://github.com" target="_blank">
+                                    <Link href={SOCIAL_LINKS.github} target="_blank">
                                         <Github className="w-4 h-4 mr-2" />
                                         GitHub
                                     </Link>
